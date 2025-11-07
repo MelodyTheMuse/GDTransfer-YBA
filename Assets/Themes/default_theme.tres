@@ -1,0 +1,8 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://de1ygy2rpeups"]
+
+[ext_resource type="FontFile" uid="uid://gorvjuo8ma84" path="res://Assets/Fonts/seguiemj.ttf" id="1_e7bfs"]
+
+[resource]
+default_font = ExtResource("1_e7bfs")
+Button/fonts/font = ExtResource("1_e7bfs")
+Label/fonts/font = ExtResource("1_e7bfs")

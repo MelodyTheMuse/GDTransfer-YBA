@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://3dep68bsik08"]
+
+[ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="2_30t8r"]
+[ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="2_qmwc1"]
+[ext_resource type="Script" uid="uid://ba3ni1d6gvtuo" path="res://Testing/test.gd" id="6_lbw5q"]
+
+[node name="Testing" type="Node2D"]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("6_lbw5q")
+
+[node name="PlayPauseButtonHolder" parent="." instance=ExtResource("2_30t8r")]
+position = Vector2(563, 318)
+
+[node name="Beat Ring" parent="." instance=ExtResource("2_qmwc1")]
+position = Vector2(563, 318)
