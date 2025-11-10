@@ -20,6 +20,7 @@ offset_left = -14.0
 offset_top = -15.0
 offset_right = 15.0
 offset_bottom = 14.0
+action_mode = 0
 
 [node name="Ring" type="Sprite2D" parent="."]
 texture = ExtResource("2_hj3bb")

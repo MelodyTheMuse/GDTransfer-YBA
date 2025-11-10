@@ -19,4 +19,4 @@ func _on_play_pause_button_pressed() -> void:
 			play_pause_button.text = "⏸️"
 		false: 
 			play_pause_button.text = "▶️"
-	print("On pressed")
+	
