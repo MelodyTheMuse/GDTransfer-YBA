@@ -6,12 +6,14 @@ var back_up_player:AudioStreamPlayer
 
 signal activate_back_up()
 
+var index:int = 0
 var active:bool = false
-var audio_backup:bool = true
+var audio_backup:bool = false
 
 #Method meant to setup the button, get the color for items in the button and connect any signals that need to be connected.
 #Should more items come to the button that need to be colored, for loop should be used instead.
 func _ready() -> void:
+	_get_index()
 	ring.modulate = resource.get_color()
 	filling.modulate = resource.get_color()
 	activate_back_up.connect(_on_audio_back_up)
@@ -20,13 +22,12 @@ func _ready() -> void:
 func _on_texture_button_pressed() -> void:
 	active = !active
 	filling.visible= active
+	GameComposer.sequenser_node.change_note_active_status.emit(resource.type_ring,index)
 	#TODO replace with sequencer signal to set position in beat
 
 #This signal connection is going to tell the system to play when this beat button gets hit by the needle
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	if !active: return
-	#TODO replace with sequencer signal to set position in beat
-	_on_audio_back_up()
 	if audio_backup:
 		back_up_player.play(0)
 
@@ -38,3 +39,9 @@ func _on_audio_back_up():
 		add_child(back_up_player)
 		back_up_player.stream = resource.default_audio
 	audio_backup = true
+
+func _get_index():
+	for c in get_parent().get_children():
+		if c == self:
+			break
+		index+=1

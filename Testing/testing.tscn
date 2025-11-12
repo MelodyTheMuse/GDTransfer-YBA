@@ -1,15 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://3dep68bsik08"]
+[gd_scene load_steps=5 format=3 uid="uid://3dep68bsik08"]
 
+[ext_resource type="Script" uid="uid://dxlbptgsmvwmt" path="res://Testing/testing.gd" id="1_i85nf"]
 [ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="2_30t8r"]
 [ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="2_qmwc1"]
-[ext_resource type="Script" uid="uid://b2427xd3bd0pa" path="res://Testing/sequenzer_test.gd" id="4_c3das"]
-[ext_resource type="AudioStream" uid="uid://dub8cvkipoo8p" path="res://Assets/Audio/kick.wav" id="5_40w3p"]
-[ext_resource type="AudioStream" uid="uid://dlvekgg4h8lsb" path="res://Assets/Audio/snare.wav" id="5_coxpv"]
-[ext_resource type="AudioStream" uid="uid://c4l8yshny6otm" path="res://Assets/Audio/clap.wav" id="6_coxpv"]
 [ext_resource type="Script" uid="uid://ba3ni1d6gvtuo" path="res://Testing/test.gd" id="6_lbw5q"]
-[ext_resource type="AudioStream" uid="uid://c5je644emfbem" path="res://Assets/Audio/open-hihat.wav" id="8_i85nf"]
 
 [node name="Testing" type="Node2D"]
+script = ExtResource("1_i85nf")
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("6_lbw5q")
@@ -19,13 +16,3 @@ position = Vector2(563, 318)
 
 [node name="Beat Ring" parent="." instance=ExtResource("2_qmwc1")]
 position = Vector2(563, 318)
-
-[node name="Node2" type="Node" parent="."]
-script = ExtResource("4_c3das")
-bpm = 60.0
-notes_per_beat = 8
-beats_per_section = 2
-metronome_sound = ExtResource("5_40w3p")
-alt_sound = ExtResource("6_coxpv")
-trompet_sound = ExtResource("5_coxpv")
-hihat_sound = ExtResource("8_i85nf")

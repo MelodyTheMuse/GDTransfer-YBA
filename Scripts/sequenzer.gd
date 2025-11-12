@@ -2,28 +2,18 @@ extends Node
 
 class_name sequenzer
 
-@export_group("Timing")
-@export var bpm:float
-@export var notes_per_beat:int
+@export_category("Timing")
+@export var bpm:float = 90
+@export var notes_per_beat:int = 16
 @export var beat_length:float
 @export var note_length:float
 @export var beats_per_section = 4
 @export var notes:Dictionary[String,int]
-
-@export_group("Audiostreams")
-@export var metronome_sound :AudioStream
-@export var alt_sound:AudioStream
-@export var trompet_sound:AudioStream
-@export var hihat_sound:AudioStream
-
-var kick_player:AudioStreamPlayer = AudioStreamPlayer.new()
-var klap_player:AudioStreamPlayer = AudioStreamPlayer.new()
-var trompet_player:AudioStreamPlayer = AudioStreamPlayer.new()
-var hihat_player:AudioStreamPlayer = AudioStreamPlayer.new()
+@export var current_note = 0
 
 const fixed_seconds:int = 60
 var seconds:float
-var _total_time :=0.0
+@export var _total_time :=0.0
 
 var ring_timer:Timer = Timer.new()
 var kick_ring_string:String = "kick_ring"
@@ -32,7 +22,7 @@ var trompet_ring_string:String = "trompet_ring"
 var hihat_ring_string:String = "hihat_ring"
 
 var _beat:int = 0
-var playing = false
+@export var playing = false
 
 var kick_ring:Array[bool]
 var klap_ring:Array[bool]
@@ -46,7 +36,6 @@ func _ready() -> void:
 	change_note_active_status.connect(_on_change_note_active_status)
 	_setup_array_sizes()
 	_calc_beat_and_note_length()
-	_players_setup()
 	_setup_dict()
 	_setup_timer(ring_timer)
 
@@ -58,7 +47,6 @@ func _process(delta: float) -> void:
 		if ring_timer.is_stopped():
 			ring_timer.start(0)
 	if !playing: 
-		_total_time = 0
 		return
 	_total_time += delta
 	seconds = fmod(_total_time,fixed_seconds)
@@ -98,19 +86,19 @@ func _calc_beat_and_note_length():
 		16: beats_per_section = 4
 		32: beats_per_section = 8
 
-func _players_setup():
-	kick_player.stream = metronome_sound
-	kick_player.set_bus("Ring0") 
-	klap_player.stream = alt_sound
-	klap_player.set_bus("Ring1")
-	trompet_player.stream = trompet_sound
-	trompet_player.set_bus("Ring2")
-	hihat_player.stream = hihat_sound
-	hihat_player.set_bus("Ring3")
-	add_child(kick_player)
-	add_child(klap_player)
-	add_child(trompet_player)
-	add_child(hihat_player)
+#func _players_setup():
+	#kick_player.stream = metronome_sound
+	#kick_player.set_bus("Ring0") 
+	#klap_player.stream = alt_sound
+	#klap_player.set_bus("Ring1")
+	#trompet_player.stream = trompet_sound
+	#trompet_player.set_bus("Ring2")
+	#hihat_player.stream = hihat_sound
+	#hihat_player.set_bus("Ring3")
+	#add_child(kick_player)
+	#add_child(klap_player)
+	#add_child(trompet_player)
+	#add_child(hihat_player)
 
 func _on_play(ring_array:Array, ring_string:String, ring_player:AudioStreamPlayer):
 	var i:int
@@ -119,37 +107,41 @@ func _on_play(ring_array:Array, ring_string:String, ring_player:AudioStreamPlaye
 	i = notes[ring_string]
 	i+=1
 	notes.set(ring_string,i)
+	current_note = i
 
 func _emit_on_play(ring_array:Array, ring_string:String,ring_type:beat_ring_button_resource.ring_types):
 	var i:int
 	if _check_allowed_play_on_dict_value(ring_array,ring_string):
-		pass
+		GameComposer.audio_composer_node.play_ring_type.emit(ring_type)
 	i = notes[ring_string]
 	i+=1
 	notes.set(ring_string,i)
 
 func _on_timeout():
-	for k in notes.keys():
-		match k:
+	for key in notes.keys():
+		match key:
 			klap_ring_string: 
-				_on_play(klap_ring,klap_ring_string,klap_player)
+				_emit_on_play(klap_ring,key,beat_ring_button_resource.ring_types.KLAP)
 			kick_ring_string:
-				_on_play(kick_ring,kick_ring_string,kick_player)
+				_emit_on_play(kick_ring,key,beat_ring_button_resource.ring_types.STOMP)
 			trompet_ring_string:
-				_on_play(trompet_ring,trompet_ring_string,trompet_player)
+				_emit_on_play(trompet_ring,key,beat_ring_button_resource.ring_types.TROMPET)
 			hihat_ring_string:	
-				_on_play(hihat_ring,hihat_ring_string,hihat_player)
+				_emit_on_play(hihat_ring,key,beat_ring_button_resource.ring_types.HIHAT)
 
 func _reset_counters():
 	_total_time = 0
 	_beat = 0
+	current_note = 0
 	_reset_dict()
 	print("one loop complete")
 
 func _check_allowed_play_on_dict_value(array:Array[bool],string:String) -> bool:
 	var i = notes[string]
 	var ring_bool = array.get(i)
-	return ring_bool
+	if ring_bool == true:
+		return true
+	return false
 
 func _setup_array_sizes():
 	klap_ring.resize(notes_per_beat)
@@ -161,6 +153,6 @@ func _setup_timer(timer:Timer):
 	#TODO Add swing
 	timer.wait_time = note_length 
 	timer.autostart= false
-	timer.timeout.connect(_on_timeout.bind())
+	timer.timeout.connect(_on_timeout)
 	timer.paused = true
 	add_child(timer)
