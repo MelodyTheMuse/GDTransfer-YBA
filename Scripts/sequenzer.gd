@@ -30,22 +30,19 @@ var trompet_ring:Array[bool]
 var hihat_ring:Array[bool]
 
 signal change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int)
+signal change_play_state(active)
 
 func _ready() -> void:
 	name = "sequenser"
 	change_note_active_status.connect(_on_change_note_active_status)
+	change_play_state.connect(_on_change_play_state)
 	_setup_array_sizes()
 	_calc_beat_and_note_length()
 	_setup_dict()
 	_setup_timer(ring_timer)
+	GameComposer.set_sequenser.emit(self)
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("main_click"):
-		playing = !playing
-		ring_timer.autostart = !ring_timer.autostart
-		ring_timer.paused = !ring_timer.paused
-		if ring_timer.is_stopped():
-			ring_timer.start(0)
 	if !playing: 
 		return
 	_total_time += delta
@@ -54,6 +51,13 @@ func _process(delta: float) -> void:
 		_beat +=1
 	if(_beat == beats_per_section):
 		_reset_counters()
+
+func _on_change_play_state(active):
+		playing = active
+		ring_timer.autostart = active
+		ring_timer.paused = !active
+		if ring_timer.is_stopped():
+			ring_timer.start(0)
 
 func _on_change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int):
 	match beat_ring_enum:

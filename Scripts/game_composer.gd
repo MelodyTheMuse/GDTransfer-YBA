@@ -9,9 +9,11 @@ var audio_composer_node:audio_composer
 var started_game:bool = false
 
 signal start_game()
+signal set_sequenser(sequence)
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)
+	set_sequenser.connect(_on_set_sequenser)
 
 func _on_start_game():
 	started_game = true
@@ -22,4 +24,6 @@ func _on_start_game():
 		sequenser_node = sequenzer.new()
 		sequenser_node.set_script(beat_sequenser_script)
 	get_tree().current_scene.add_child(audio_composer_node)
-	add_child(sequenser_node)
+
+func _on_set_sequenser(seq):
+	sequenser_node = seq

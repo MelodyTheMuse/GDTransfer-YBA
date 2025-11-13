@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://drve3dbd8563v"]
+
+[ext_resource type="Script" uid="uid://d1bdln6uwrmsj" path="res://Scripts/16_beat_game_scene.gd" id="1_5n7wb"]
+[ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Testing/sequenser.tscn" id="2_qn3dc"]
+[ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="3_auiup"]
+[ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="4_i2hho"]
+
+[node name="16BeatGameScene" type="Node2D"]
+script = ExtResource("1_5n7wb")
+
+[node name="Sequencer" parent="." instance=ExtResource("2_qn3dc")]
+bpm = 90.0
+notes_per_beat = 16
+
+[node name="BeatRing" parent="." instance=ExtResource("3_auiup")]
+position = Vector2(604, 314)
+
+[node name="PlayPauseButtonHolder" parent="BeatRing" instance=ExtResource("4_i2hho")]

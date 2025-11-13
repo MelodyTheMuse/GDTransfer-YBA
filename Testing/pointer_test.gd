@@ -5,10 +5,9 @@ func _ready() -> void:pass
 func _process(_delta: float) -> void:
 	if bpm == null : bpm = GameComposer.sequenser_node
 	if bpm.playing:
-		var intergerFactor:float = (bpm.current_note as float  + (bpm._total_time  / bpm.note_length )) / bpm.notes_per_beat as float 
+		var intergerFactor:float = (bpm.current_note-1 as float  + (bpm._total_time  / bpm.note_length )) / bpm.notes_per_beat as float 
 		var floatFactor:float  = intergerFactor * 360  - 7
 		rotation_degrees = floatFactor
-		
 		#print("IntergerFactor : ",intergerFactor) 
 		#print("float Facotr : ",floatFactor) 
 		#print("bpm current beat : ",bpm.current_beat)
