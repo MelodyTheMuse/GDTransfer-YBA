@@ -1,14 +1,13 @@
 extends Sprite2D
-@onready var bpm :BpmManagerGD = BpmManager
+@onready var bpm :sequenzer = GameComposer.sequenser_node
 
-func _ready() -> void:
-	bpm.on_starting_game.emit()
+func _ready() -> void:pass
 func _process(_delta: float) -> void:
-	if bpm._playing:
-		var intergerFactor:float = (bpm.current_beat as float  + (bpm.beat_timer  / bpm.time_per_beat )) / bpm.amount_of_beats as float 
+	if bpm == null : bpm = GameComposer.sequenser_node
+	if bpm.playing:
+		var intergerFactor:float = (bpm.current_note-1 as float  + (bpm._total_time  / bpm.note_length )) / bpm.notes_per_beat as float 
 		var floatFactor:float  = intergerFactor * 360  - 7
 		rotation_degrees = floatFactor
-		
 		#print("IntergerFactor : ",intergerFactor) 
 		#print("float Facotr : ",floatFactor) 
 		#print("bpm current beat : ",bpm.current_beat)
