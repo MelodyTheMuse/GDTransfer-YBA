@@ -21,10 +21,12 @@ func _on_start_game():
 	started_game = true
 
 func _on_set_sequenser(seq):
-	sequenser_node = seq
+	if sequenser_node == null: 
+		sequenser_node = seq
 
 func _on_set_audio_composer(audiocomposer):
-	audio_composer_node = audiocomposer
+	if audio_composer_node == null:
+		audio_composer_node = audiocomposer
 
 func _on_fetch_sequenser():
 	if sequenser_node == null: 

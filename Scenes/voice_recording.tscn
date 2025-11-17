@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://0ok1ysn3laip"]
+
+[ext_resource type="Script" uid="uid://b8fa5smifqh0v" path="res://Scenes/voice_recording.gd" id="1_kechc"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_kechc"]
+
+[node name="VoiceRecording" type="Node"]
+script = ExtResource("1_kechc")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 434.0
+offset_top = 133.0
+offset_right = 442.0
+offset_bottom = 141.0
+scale = Vector2(12.975636, 3.3259957)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 156.0
+offset_top = 114.0
+offset_right = 164.0
+offset_bottom = 122.0
+scale = Vector2(23.076672, 7.968949)
+
+[node name="iostreamrecord" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_kechc")
+autoplay = true
+bus = &"Microphone"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

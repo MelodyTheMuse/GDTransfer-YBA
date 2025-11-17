@@ -13,6 +13,7 @@ script = ExtResource("1_i85nf")
 [node name="AudioComposer" parent="." instance=ExtResource("2_coxpv")]
 
 [node name="sequenser" parent="." instance=ExtResource("3_a23fp")]
+notes_per_beat = 16
 
 [node name="Node" type="Node" parent="."]
 script = ExtResource("6_lbw5q")
@@ -22,3 +23,4 @@ position = Vector2(563, 318)
 
 [node name="Beat Ring" parent="." instance=ExtResource("2_qmwc1")]
 position = Vector2(563, 318)
+scale = Vector2(1.2, 1.2)

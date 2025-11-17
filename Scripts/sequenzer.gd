@@ -10,6 +10,7 @@ class_name sequenzer
 @export var beats_per_section = 4
 @export var notes:Dictionary[String,int]
 @export var current_note = 0
+var first_note = true
 
 const fixed_seconds:int = 60
 var seconds:float
@@ -37,8 +38,8 @@ func _ready() -> void:
 	name = "sequenser"
 	change_note_active_status.connect(_on_change_note_active_status)
 	change_play_state.connect(_on_change_play_state)
-	_setup_array_sizes()
 	_calc_beat_and_note_length()
+	_setup_array_sizes()
 	_setup_dict()
 	_setup_timer(ring_timer)
 	GameComposer.set_sequenser.emit(self)
@@ -76,11 +77,11 @@ func _process(delta: float) -> void:
 		_reset_counters()
 
 func _on_change_play_state(active):
-		playing = active
-		ring_timer.autostart = active
-		ring_timer.paused = !active
-		if ring_timer.is_stopped():
-			ring_timer.start(0)
+	playing = active
+	ring_timer.autostart = active
+	ring_timer.paused = !active
+	if ring_timer.is_stopped():
+		ring_timer.start(0)
 
 func _on_change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int):
 	match beat_ring_enum:
