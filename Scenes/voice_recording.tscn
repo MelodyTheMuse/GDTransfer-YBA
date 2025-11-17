@@ -16,8 +16,6 @@ scale = Vector2(1.4142118, 1.3659954)
 text = "Press to record
 "
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-
 [node name="Button2" type="Button" parent="."]
 offset_left = -2.9999847
 offset_top = -1.9999924
