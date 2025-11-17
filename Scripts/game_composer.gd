@@ -12,6 +12,7 @@ signal set_audio_composer(audiocomposer)
 signal use_back_up
 signal set_rec_synths(recording)
 signal play_synth(_time)
+signal stop_synth()
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)

@@ -27,11 +27,11 @@ var mic_player = 2
 
 signal play_ring_type(ring_type:beat_ring_button_resource.ring_types)
 
-
 func _ready() -> void:
 	GameComposer.set_audio_composer.emit(self)
 	GameComposer.set_rec_synths.connect(_on_set_rec_synth)
 	GameComposer.play_synth.connect(_on_play_synth)
+	GameComposer.stop_synth.connect(_on_stop_synth)
 	play_ring_type.connect(_on_play)
 	name = "audio_composer"
 	_setup_players(stomp_ring_players, "Ring0")
@@ -110,3 +110,8 @@ func _on_play_synth(_time):
 	for c in synths:
 		if c != null:
 			c.play(_time)
+
+func _on_stop_synth():
+	for c in synths:
+		if c != null:
+			c.stop()

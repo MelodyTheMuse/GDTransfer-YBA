@@ -18,5 +18,6 @@ func _on_play_pause_button_pressed() -> void:
 			GameComposer.play_synth.emit(sequenser._total_time)
 			play_pause_button.text = "⏸️"
 		false: 
+			GameComposer.stop_synth.emit()
 			play_pause_button.text = "▶️"
 	play_button_pressed.emit()
