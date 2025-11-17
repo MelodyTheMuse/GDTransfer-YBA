@@ -11,10 +11,13 @@ var back_up = false
 var capture_mix_rate
 
 func _ready() -> void:
-	if OS.get_name() == "Web":
-		setup_effect_backup()
-	else:
-		setup_effect()
+	match OS.get_model_name():
+		"Windows":
+			setup_effect()
+		"Android":
+			setup_effect()
+		"GenericDevice":
+			setup_effect_backup()
 
 func _process(_delta: float) -> void:
 	if is_recording:
@@ -43,7 +46,6 @@ func _on_button_pressed() -> void:
 			is_recording = true
 	else:
 		effect.set_recording_active(true)
-	$Button2.disabled = true
 	$Button.text = "Stop"
 	_set_timer()
 
@@ -51,13 +53,13 @@ func _on_timeout():
 	if back_up:
 		is_recording = false
 		GameComposer.set_rec_synths.emit(convert_to_wav(data))
+		$Button.text = "Record"
 		return
 	if effect == null: setup_effect()
 	if effect.is_recording_active():
 		recording = effect.get_recording()
 		effect.set_recording_active(false)
 		GameComposer.set_rec_synths.emit(recording)
-	$Button2.disabled = false
 	$Button.text = "Record"
 
 func _on_set_rec_button(button):

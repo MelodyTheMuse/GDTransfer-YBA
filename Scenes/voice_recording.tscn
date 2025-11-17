@@ -16,18 +16,9 @@ scale = Vector2(1.4142118, 1.3659954)
 text = "Press to record
 "
 
-[node name="Button2" type="Button" parent="."]
-offset_left = -2.9999847
-offset_top = -1.9999924
-offset_right = 38.000015
-offset_bottom = 29.000008
-scale = Vector2(2.259651, 1.6250496)
-text = "Play"
-
 [node name="iostreamrecord" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_kechc")
 autoplay = true
 bus = &"Microphone"
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]
