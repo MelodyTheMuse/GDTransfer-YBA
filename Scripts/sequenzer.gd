@@ -83,6 +83,7 @@ func _on_change_play_state(active):
 	if ring_timer.is_stopped():
 		ring_timer.start(0)
 
+
 func _on_change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int):
 	match beat_ring_enum:
 		beat_ring_button_resource.ring_types.KLAP:
@@ -133,6 +134,7 @@ func _reset_counters():
 	_total_time = 0
 	_beat = 0
 	current_note = 0
+	GameComposer.play_synth.emit(_total_time)
 	_reset_dict()
 	print("one loop complete")
 

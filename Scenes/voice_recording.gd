@@ -1,4 +1,5 @@
 extends Node
+@export var play_button:Node2D
 var effect:AudioEffectRecord
 var recording
 var rec_time = 4
@@ -7,9 +8,6 @@ var rec_button
 func _ready() -> void:
 	var idx = AudioServer.get_bus_index("Microphone")
 	effect = AudioServer.get_bus_effect(idx, 1)
-
-signal set_rec_button(button)
-
 
 func _on_button_pressed() -> void:
 	$Button2.disabled = true
@@ -23,6 +21,7 @@ func _on_timeout():
 		$Button2.disabled = false
 		effect.set_recording_active(false)
 		$Button.text = "Record"
+		GameComposer.set_rec_synths.emit(recording)
 
 func _on_set_rec_button(button):
 	rec_button = button

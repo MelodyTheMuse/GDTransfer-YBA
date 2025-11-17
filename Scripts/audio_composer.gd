@@ -7,10 +7,13 @@ class_name audio_composer
 @export var klap_ring_players :Array [AudioStreamPlayer]
 @export var trompet_ring_players :Array [AudioStreamPlayer]
 @export var hihat_ring_players :Array [AudioStreamPlayer]
+@export var synths:Array[AudioStreamPlayer]
 @export_category("Audio Sources")
 @export var bank:audio_bank
 
 var green_rec
+var green_index = 0
+var purple_index = 1
 var audiostreamplayer = AudioStreamPlayer.new()
 var backup_bank:audio_bank = preload("res://Assets/Audio/back_up/default.tres")
 var stomp_ring:Node2D
@@ -23,16 +26,19 @@ var left_player = 1
 var mic_player = 2
 
 signal play_ring_type(ring_type:beat_ring_button_resource.ring_types)
-signal set_rec_synths(recording)
+
 
 func _ready() -> void:
 	GameComposer.set_audio_composer.emit(self)
+	GameComposer.set_rec_synths.connect(_on_set_rec_synth)
+	GameComposer.play_synth.connect(_on_play_synth)
+	play_ring_type.connect(_on_play)
 	name = "audio_composer"
 	_setup_players(stomp_ring_players, "Ring0")
 	_setup_players(klap_ring_players, "Ring1")
 	_setup_players(trompet_ring_players, "Ring2")
 	_setup_players(hihat_ring_players, "Ring3")
-	play_ring_type.connect(_on_play)
+	synths.resize(2)
 	if bank != null:
 		_fill_players(bank)
 	else:
@@ -69,7 +75,7 @@ func _get_players_volumes():
 	pass
 
 func _setup_players(ring_player, bus):
-	ring_player.resize(4)
+	ring_player.resize(3)
 	var i = 0
 	for c in ring_player:
 		c = AudioStreamPlayer.new()
@@ -90,4 +96,17 @@ func _fill_players(_bank):
 
 func _on_set_rec_synth(recording):
 	green_rec = recording
-	pass
+	if synths[green_index] == null:
+		var temp = synths[green_index] 
+		temp = AudioStreamPlayer.new()
+		temp.stream = recording
+		temp.set_bus("GreenVoice")
+		synths[green_index] = temp
+		add_child(synths[green_index])
+	else:
+		synths[green_index].stream = recording
+
+func _on_play_synth(_time):
+	for c in synths:
+		if c != null:
+			c.play(_time)
