@@ -4,8 +4,6 @@ extends Node2D
 @export var resource:beat_ring_button_resource
 var back_up_player:AudioStreamPlayer 
 
-signal activate_back_up()
-
 var index:int = 0
 var active:bool = false
 var audio_backup:bool = false
@@ -16,14 +14,13 @@ func _ready() -> void:
 	_get_index()
 	ring.modulate = resource.get_color()
 	filling.modulate = resource.get_color()
-	activate_back_up.connect(_on_audio_back_up)
+	GameComposer.use_back_up.connect(_on_audio_back_up)
 
 #When pressing the button we set it active, true or false, and fill it in true or false
 func _on_texture_button_pressed() -> void:
 	active = !active
 	filling.visible= active
 	GameComposer.sequenser_node.change_note_active_status.emit(resource.type_ring,index)
-	#TODO replace with sequencer signal to set position in beat
 
 #This signal connection is going to tell the system to play when this beat button gets hit by the needle
 func _on_area_2d_area_entered(_area: Area2D) -> void:

@@ -11,14 +11,24 @@ config_version=5
 [application]
 
 config/name="GDTransfer-YBA"
-run/main_scene="uid://drve3dbd8563v"
+run/main_scene="uid://3dep68bsik08"
 config/features=PackedStringArray("4.5", "GL Compatibility")
 config/icon="res://Assets/Sprites/icon.svg"
+
+[audio]
+
+driver/enable_input=true
 
 [autoload]
 
 BpmManager="*res://Scripts/bpm_manager.gd"
 GameComposer="*res://Scripts/game_composer.gd"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="viewport"
 
 [editor_plugins]
 
