@@ -1,6 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0ok1ysn3laip"]
 
-[ext_resource type="Script" uid="uid://b8fa5smifqh0v" path="res://Scenes/voice_recording.gd" id="1_kechc"]
+[ext_resource type="Script" uid="uid://b8fa5smifqh0v" path="res://Scripts/Resources/Audio/voice_recording.gd" id="1_kechc"]
+
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_kechc"]
 

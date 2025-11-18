@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://k50godrgagpl"]
 
-[ext_resource type="Script" uid="uid://b2427xd3bd0pa" path="res://Scripts/sequenzer.gd" id="1_8hf5b"]
+[ext_resource type="Script" uid="uid://b2427xd3bd0pa" path="res://Scripts/Resources/Audio/sequenzer.gd" id="1_8hf5b"]
 
 [node name="sequenser" type="Node"]
 script = ExtResource("1_8hf5b")
