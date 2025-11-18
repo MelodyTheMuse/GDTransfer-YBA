@@ -8,7 +8,7 @@
 [ext_resource type="AudioStream" uid="uid://coi6rfsowxm1a" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Closed_Snare G.wav" id="4_cn8us"]
 [ext_resource type="AudioStream" uid="uid://dcxqgbn1rm7n0" path="res://Assets/Audio/back_up/1_kampvuur/Kick Discaux 2.wav" id="6_5fy3c"]
 [ext_resource type="AudioStream" uid="uid://d3g22c6fs6tte" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Kick TwoTone.wav" id="7_133fl"]
-[ext_resource type="Script" uid="uid://bp2ij4bj68sd2" path="res://Scripts/audio_bank.gd" id="9_1xfe1"]
+[ext_resource type="Script" uid="uid://bp2ij4bj68sd2" path="res://Scripts/Resources/audio_bank.gd" id="9_1xfe1"]
 [ext_resource type="AudioStream" uid="uid://c5jsuheqpdgp7" path="res://Assets/Audio/back_up/1_kampvuur/Snare_Perc Sa.wav" id="10_ohdxi"]
 [ext_resource type="AudioStream" uid="uid://v3bjsqvgwe7h" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Snare Glow 1.wav" id="11_ajb1i"]
 
