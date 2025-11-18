@@ -1,0 +1,29 @@
+[gd_resource type="Resource" script_class="audio_bank" load_steps=12 format=3 uid="uid://upar0xbf2mum"]
+
+[ext_resource type="AudioStream" uid="uid://b1jsljkc70xu8" path="res://Assets/Audio/back_up/1_kampvuur/Clap Lusine 1.wav" id="1_atnbr"]
+[ext_resource type="Resource" uid="uid://b7ub1flq0y223" path="res://Assets/Audio/back_up/1_kampvuur/EffectProfile.tres" id="1_xq1sk"]
+[ext_resource type="AudioStream" uid="uid://dw3nywljmpm1v" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Clap_Snap VibeO.wav" id="2_4tubm"]
+[ext_resource type="SoundFont" uid="uid://drkyib86jxdtn" path="res://Assets/Experimental/soundfont/florestan-subset.sfo" id="2_5lo16"]
+[ext_resource type="AudioStream" uid="uid://cv1usun3tbiiy" path="res://Assets/Audio/back_up/1_kampvuur/ClosedHH Cosmos.wav" id="3_cgpue"]
+[ext_resource type="AudioStream" uid="uid://coi6rfsowxm1a" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Closed_Snare G.wav" id="4_cn8us"]
+[ext_resource type="AudioStream" uid="uid://dcxqgbn1rm7n0" path="res://Assets/Audio/back_up/1_kampvuur/Kick Discaux 2.wav" id="6_5fy3c"]
+[ext_resource type="AudioStream" uid="uid://d3g22c6fs6tte" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Kick TwoTone.wav" id="7_133fl"]
+[ext_resource type="Script" uid="uid://bp2ij4bj68sd2" path="res://Scripts/audio_bank.gd" id="9_1xfe1"]
+[ext_resource type="AudioStream" uid="uid://c5jsuheqpdgp7" path="res://Assets/Audio/back_up/1_kampvuur/Snare_Perc Sa.wav" id="10_ohdxi"]
+[ext_resource type="AudioStream" uid="uid://v3bjsqvgwe7h" path="res://Assets/Audio/back_up/1_kampvuur/mineur/Snare Glow 1.wav" id="11_ajb1i"]
+
+[resource]
+script = ExtResource("9_1xfe1")
+kick = ExtResource("6_5fy3c")
+kick_alt = ExtResource("7_133fl")
+klap = ExtResource("1_atnbr")
+klap_alt = ExtResource("2_4tubm")
+snare = ExtResource("10_ohdxi")
+snare_alt = ExtResource("11_ajb1i")
+hihat = ExtResource("3_cgpue")
+hihat_alt = ExtResource("4_cn8us")
+green_soundfont = ExtResource("2_5lo16")
+green_instrument_id = 5
+purple_soundfont = ExtResource("2_5lo16")
+purple_instrument_id = 8
+effect_profile_ = ExtResource("1_xq1sk")

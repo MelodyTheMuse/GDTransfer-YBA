@@ -1,7 +1,7 @@
 extends Node
 class_name BpmManagerGD
 # BPM property with signal
-@export var _bpm: int = 120:
+@export var _bpm: int = 90:
 	set(value):
 		_bpm = value
 		on_bpm_changed.emit(_bpm)
@@ -42,7 +42,6 @@ func _on_starting_game():
 	amount_of_beats = read_beats_amount()
 	current_beat = amount_of_beats - 1
 	started_game = true
-	print("started game")
 
 func _ready():
 	on_starting_game.connect(_on_starting_game)
@@ -55,8 +54,9 @@ func _process(delta: float):
 	beat_timer += delta
 	var beats_per_bar: float = 4.0
 	base_time_per_beat = 60.0 / _bpm / beats_per_bar
-	if current_beat % 2 == 1:
-		time_per_beat = base_time_per_beat + (base_time_per_beat * swing)
+	time_per_beat = base_time_per_beat
+	#if current_beat % 2 == 1:
+		#time_per_beat = base_time_per_beat + (base_time_per_beat * swing)
 	#else:
 		#time_per_beat = base_time_per_beat - (base_time_per_beat * swing)
 		
