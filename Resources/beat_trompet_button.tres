@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="beat_ring_button_resource" load_steps=3 format=3 uid="uid://ohdqwhjs2otw"]
 
 [ext_resource type="AudioStream" uid="uid://dlvekgg4h8lsb" path="res://Assets/Audio/back_up/snare.wav" id="1_uomls"]
-[ext_resource type="Script" uid="uid://8kfvwo1wf6qc" path="res://Scripts/beat_ring_button_resource.gd" id="2_rwr3h"]
+[ext_resource type="Script" uid="uid://8kfvwo1wf6qc" path="res://Scripts/Resources/beat_ring_button_resource.gd" id="2_rwr3h"]
 
 
 [resource]
