@@ -32,10 +32,9 @@ func setup_effect():
 	effect = AudioServer.get_bus_effect(idx, 1)
 
 func setup_effect_backup():
-	print("web")
 	var idx = AudioServer.get_bus_index("Microphone")
 	back_up_effect = AudioServer.get_bus_effect(idx, 0)
-	capture_mix_rate = 48000
+	capture_mix_rate = AudioServer.get_input_mix_rate()
 	back_up = true
 
 func _on_button_pressed() -> void:
@@ -80,6 +79,7 @@ func _set_timer():
 		rec_time = GameComposer.sequenser_node.note_length * GameComposer.sequenser_node.notes_per_beat
 	get_tree().create_timer(rec_time).timeout.connect(_on_timeout)
 
+#Code taken from https://github.com/godotengine/godot/issues/102316
 func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
 	var wav_stream = AudioStreamWAV.new()
 	
