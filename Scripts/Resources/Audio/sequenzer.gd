@@ -71,7 +71,7 @@ func _process(delta: float) -> void:
 		return
 	_total_time += delta
 	seconds = fmod(_total_time,fixed_seconds)
-	if(notes[klap_ring_string] == notes_per_beat):
+	if(current_note == notes_per_beat):
 		_beat +=1
 	if(_beat == beats_per_section):
 		_reset_counters()
@@ -120,15 +120,17 @@ func _on_play(ring_array:Array, ring_string:String, ring_player:AudioStreamPlaye
 	i = notes[ring_string]
 	i+=1
 	notes.set(ring_string,i)
-	current_note = i
+	if current_note < i:
+		current_note = i
 
 func _emit_on_play(ring_array:Array, ring_string:String,ring_type:beat_ring_button_resource.ring_types):
 	var i:int
 	if _check_allowed_play_on_dict_value(ring_array,ring_string):
-		GameComposer.audio_composer_node.play_ring_type.emit(ring_type)
+		GameComposer.play_ring_type.emit(ring_type)
 	i = notes[ring_string]
 	i+=1
 	notes.set(ring_string,i)
+	current_note = i
 
 func _reset_counters():
 	_total_time = 0
