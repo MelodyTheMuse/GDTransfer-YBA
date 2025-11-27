@@ -23,3 +23,4 @@ class_name audio_bank
 @export_category("Effects")
 @export var effect_profile_:effect_profile
 @export_category("Song settings")
+@export_group("")
