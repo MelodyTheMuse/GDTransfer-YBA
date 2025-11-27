@@ -2,5 +2,73 @@
 
 [ext_resource type="Script" uid="uid://bvebdaf3yxtx1" path="res://Scripts/Resources/Audio/audio_composer.gd" id="1_4b5ml"]
 
-[node name="AudioComposer" type="Node"]
+[node name="AudioComposer" type="Node" node_paths=PackedStringArray("stomp_ring_players", "klap_ring_players", "trompet_ring_players", "hihat_ring_players", "green_synth")]
 script = ExtResource("1_4b5ml")
+stomp_ring_players = [NodePath("Stomp_ring/Primary"), NodePath("Stomp_ring/Alterinative"), NodePath("Stomp_ring/Recording")]
+klap_ring_players = [NodePath("klap_ring/Primary"), NodePath("klap_ring/Alterinative"), NodePath("klap_ring/Recording")]
+trompet_ring_players = [NodePath("snare_ring/Primary"), NodePath("snare_ring/Alterinative"), NodePath("snare_ring/Recording")]
+hihat_ring_players = [NodePath("hihat_ring/Primary"), NodePath("hihat_ring/Alterinative"), NodePath("hihat_ring/Recording")]
+green_synth = [NodePath("green_synth/Primary"), NodePath("green_synth/Alterinative"), NodePath("green_synth/Recording")]
+
+[node name="Stomp_ring" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="Stomp_ring"]
+bus = &"Ring0"
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="Stomp_ring"]
+bus = &"Ring0"
+
+[node name="Recording" type="AudioStreamPlayer" parent="Stomp_ring"]
+bus = &"Ring0"
+
+[node name="klap_ring" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="klap_ring"]
+bus = &"Ring1"
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="klap_ring"]
+bus = &"Ring1"
+
+[node name="Recording" type="AudioStreamPlayer" parent="klap_ring"]
+bus = &"Ring1"
+
+[node name="snare_ring" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="snare_ring"]
+bus = &"Ring2"
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="snare_ring"]
+bus = &"Ring2"
+
+[node name="Recording" type="AudioStreamPlayer" parent="snare_ring"]
+bus = &"Ring2"
+
+[node name="hihat_ring" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="hihat_ring"]
+bus = &"Ring3"
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="hihat_ring"]
+bus = &"Ring3"
+
+[node name="Recording" type="AudioStreamPlayer" parent="hihat_ring"]
+bus = &"Ring3"
+
+[node name="green_synth" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="green_synth"]
+bus = &"Green"
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="green_synth"]
+bus = &"Green_alt"
+
+[node name="Recording" type="AudioStreamPlayer" parent="green_synth"]
+bus = &"GreenVoice"
+
+[node name="purple_synth" type="Node" parent="."]
+
+[node name="Primary" type="AudioStreamPlayer" parent="purple_synth"]
+
+[node name="Alterinative" type="AudioStreamPlayer" parent="purple_synth"]
+
+[node name="Recording" type="AudioStreamPlayer" parent="purple_synth"]
