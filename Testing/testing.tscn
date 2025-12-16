@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://3dep68bsik08"]
+[gd_scene load_steps=9 format=3 uid="uid://3dep68bsik08"]
 
 [ext_resource type="Script" uid="uid://dxlbptgsmvwmt" path="res://Testing/testing.gd" id="1_i85nf"]
 [ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="2_30t8r"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Scenes/sequenser.tscn" id="3_a23fp"]
 [ext_resource type="Script" uid="uid://ba3ni1d6gvtuo" path="res://Testing/test.gd" id="6_lbw5q"]
 [ext_resource type="PackedScene" uid="uid://0ok1ysn3laip" path="res://Scenes/voice_recording.tscn" id="7_a23fp"]
+[ext_resource type="PackedScene" uid="uid://cxvsak3k413is" path="res://Testing/Effect_change.tscn" id="8_40w3p"]
 
 [node name="Testing" type="Node2D"]
 script = ExtResource("1_i85nf")
@@ -14,6 +15,7 @@ script = ExtResource("1_i85nf")
 [node name="AudioComposer" parent="." instance=ExtResource("2_coxpv")]
 
 [node name="sequenser" parent="." instance=ExtResource("3_a23fp")]
+bpm = 120.0
 notes_per_beat = 16
 
 [node name="Node" type="Node" parent="."]
@@ -28,3 +30,9 @@ position = Vector2(563, 318)
 [node name="Beat Ring" parent="." instance=ExtResource("2_qmwc1")]
 position = Vector2(563, 318)
 scale = Vector2(1.2, 1.2)
+
+[node name="EffectChange" parent="." instance=ExtResource("8_40w3p")]
+offset_left = 227.0
+offset_top = 473.0
+offset_right = 227.0
+offset_bottom = 473.0

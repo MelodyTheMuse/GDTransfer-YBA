@@ -7,7 +7,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if sequencer == null : sequencer = GameComposer._on_fetch_sequenser()
 	if active:
-		var rotation_factor:float = (-1 +(sequencer.seconds  / sequencer.note_length )) / sequencer.notes_per_beat
+		var rotation_factor:float = (-1+(sequencer.seconds  / sequencer.note_length )) / sequencer.notes_per_beat
 		var calc_rotation_degree:float  = rotation_factor * 360  - 7
 		rotation_degrees = calc_rotation_degree
 		#print("rotation_factor : ",rotation_factor) 

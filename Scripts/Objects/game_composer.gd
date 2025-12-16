@@ -15,6 +15,7 @@ signal set_rec_synth(recording)
 signal play_synth(_time)
 signal stop_synth()
 signal play_ring_type(ring_type:beat_ring_button_resource.ring_types)
+signal stop_all_players()
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)

@@ -12,14 +12,16 @@ var audio_backup:bool = false
 #Should more items come to the button that need to be colored, for loop should be used instead.
 func _ready() -> void:
 	_get_index()
-	ring.modulate = resource.get_color()
-	filling.modulate = resource.get_color()
+	scale = Vector2(0.5,0.5)
+	ring.texture = resource.get_empty_texture()
+	filling.texture = resource.get_fill_texture()
 	GameComposer.use_back_up.connect(_on_audio_back_up)
 
 #When pressing the button we set it active, true or false, and fill it in true or false
 func _on_texture_button_pressed() -> void:
 	active = !active
 	filling.visible= active
+	ring.visible = !active
 	GameComposer.sequenser_node.change_note_active_status.emit(resource.type_ring,index)
 
 #This signal connection is going to tell the system to play when this beat button gets hit by the needle
