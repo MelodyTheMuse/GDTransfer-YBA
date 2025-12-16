@@ -8,18 +8,23 @@
 radius = 14.035668
 
 [node name="BeatStompButton" type="Node2D"]
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_yfu8y")
 
 [node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1.5, 1.5)
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2, 2)
 shape = SubResource("CircleShape2D_v5ssc")
 
 [node name="TextureButton" type="TextureButton" parent="."]
-offset_left = -14.0
-offset_top = -15.0
-offset_right = 15.0
-offset_bottom = 14.0
+offset_left = -28.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 28.0
 action_mode = 0
 
 [node name="Ring" type="Sprite2D" parent="."]

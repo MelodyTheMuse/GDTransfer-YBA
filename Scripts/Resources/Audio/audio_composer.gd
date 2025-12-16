@@ -32,12 +32,14 @@ func _ready() -> void:
 	GameComposer.play_synth.connect(_on_play_synth)
 	GameComposer.stop_synth.connect(_on_stop_synth)
 	GameComposer.play_ring_type.connect(_on_play)
+	GameComposer.stop_all_players.connect(_on_stop_all_player)
 	name = "audio_composer"
 	if bank != null:
 		_fill_players(bank)
 	else:
 		_fill_players(backup_bank)
 
+#Play audio based on the ring type given
 func _on_play(ring_type:beat_ring_button_resource.ring_types):
 	match ring_type:
 		beat_ring_button_resource.ring_types.KLAP:
@@ -53,13 +55,15 @@ func _on_play(ring_type:beat_ring_button_resource.ring_types):
 			_set_player_volumes()
 			hihat_ring_players[primary_player].play(0)
 
-
+#TODO This func sets the volumes of the places based on the values of the mixer
 func _set_player_volumes():
 	pass
 
+#TODO this func needs to get the values from the mixer
 func _get_players_volumes():
 	pass
 
+#Only to be used during backup, this does the setup for the playes should they not exist already
 func _setup_players(ring_player, bus):
 	ring_player.resize(3)
 	var i = 0
@@ -70,6 +74,7 @@ func _setup_players(ring_player, bus):
 		i+=1
 		add_child(c)
 
+#This func gives the players the information they need to play the correct file based on the bank
 func _fill_players(_bank):
 	stomp_ring_players.get(primary_player).stream =_bank.kick
 	stomp_ring_players.get(alternative_player).stream = _bank.kick_alt
@@ -80,9 +85,10 @@ func _fill_players(_bank):
 	hihat_ring_players.get(primary_player).stream =_bank.hihat
 	hihat_ring_players.get(alternative_player).stream = _bank.hihat_alt
 
+#This sets the stream and creates the synth if it doesn't exist already
 func _on_set_rec_synth(recording):
 	green_rec = recording
-	if green_synth[green_index] == null:
+	if green_synth[2] == null:
 		var temp = green_synth[green_index] 
 		temp = AudioStreamPlayer.new()
 		temp.stream = recording
@@ -90,14 +96,23 @@ func _on_set_rec_synth(recording):
 		green_synth[green_index] = temp
 		add_child(green_synth[green_index])
 	else:
-		green_synth[green_index].stream = recording
+		green_synth[2].stream = recording
 
+#This func starts the synth stream based on the time given
 func _on_play_synth(_time):
 	for c in green_synth:
 		if c != null:
 			c.play(_time)
 
+#This func stops the synth from playing
 func _on_stop_synth():
 	for c in green_synth:
 		if c != null:
 			c.stop()
+
+func _on_stop_all_player():
+	print("stopped players")
+	klap_ring_players[primary_player].stop()
+	stomp_ring_players[primary_player].stop()
+	hihat_ring_players[primary_player].stop()
+	trompet_ring_players[primary_player].stop()

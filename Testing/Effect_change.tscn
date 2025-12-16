@@ -1,0 +1,63 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxvsak3k413is"]
+
+[ext_resource type="Script" uid="uid://cb2f6o7dtv0nh" path="res://Testing/effect_by_location.gd" id="1_a6yur"]
+
+[node name="EffectChange" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_a6yur")
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_right = 614.0
+offset_bottom = 277.0
+min_value = 1.0
+max_value = 20500.0
+value = 1.0
+
+[node name="HSlider2" type="HSlider" parent="."]
+layout_mode = 0
+offset_top = 95.0
+offset_right = 614.0
+offset_bottom = 372.0
+min_value = 0.1
+max_value = 1.0
+step = 0.01
+value = 0.1
+
+[node name="Label" type="Label" parent="HSlider2"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 100.0
+offset_right = 44.0
+offset_bottom = 123.0
+text = "Resonance "
+
+[node name="Label2" type="Label" parent="HSlider2"]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 101.0
+offset_right = 180.0
+offset_bottom = 124.0
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 95.0
+offset_right = 44.0
+offset_bottom = 118.0
+text = "BandPass CutoffHZ"
+
+[node name="Value" type="Label" parent="."]
+layout_mode = 0
+offset_left = 187.0
+offset_top = 97.0
+offset_right = 227.0
+offset_bottom = 120.0
+
+[connection signal="value_changed" from="HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="value_changed" from="HSlider2" to="." method="_on_h_slider_2_value_changed"]

@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b8fa5smifqh0v" path="res://Scripts/Resources/Audio/voice_recording.gd" id="1_kechc"]
 
-
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_kechc"]
 
 [node name="VoiceRecording" type="Node"]
