@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://drve3dbd8563v"]
+[gd_scene load_steps=7 format=3 uid="uid://drve3dbd8563v"]
 
 [ext_resource type="Script" uid="uid://d1bdln6uwrmsj" path="res://Scripts/PackedScenes/16_beat_game_scene.gd" id="1_5n7wb"]
 [ext_resource type="PackedScene" uid="uid://swjjvixiy8lt" path="res://Scenes/audio_composer.tscn" id="2_id73f"]
 [ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Scenes/sequenser.tscn" id="2_qn3dc"]
 [ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="3_auiup"]
 [ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="4_i2hho"]
+[ext_resource type="PackedScene" uid="uid://0ok1ysn3laip" path="res://Scenes/voice_recording.tscn" id="6_ak7c0"]
 
 [node name="16BeatGameScene" type="Node2D"]
 script = ExtResource("1_5n7wb")
@@ -12,11 +13,12 @@ script = ExtResource("1_5n7wb")
 [node name="AudioComposer" parent="." instance=ExtResource("2_id73f")]
 
 [node name="Sequencer" parent="." instance=ExtResource("2_qn3dc")]
-bpm = 90.0
 notes_per_beat = 16
 
-[node name="BeatRing" parent="." instance=ExtResource("3_auiup")]
-position = Vector2(927, 505)
-scale = Vector2(1.25, 1.25)
+[node name="PlayPauseButtonHolder" parent="." instance=ExtResource("4_i2hho")]
+position = Vector2(619, 332)
 
-[node name="PlayPauseButtonHolder" parent="BeatRing" instance=ExtResource("4_i2hho")]
+[node name="BeatRing" parent="." instance=ExtResource("3_auiup")]
+position = Vector2(619, 332)
+
+[node name="VoiceRecording" parent="." instance=ExtResource("6_ak7c0")]

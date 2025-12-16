@@ -9,15 +9,14 @@ var is_recording
 var data:Array
 var back_up = false
 var capture_mix_rate
+var count_down :Timer = Timer.new()
 
 func _ready() -> void:
-	match OS.get_model_name():
-		"Windows":
-			setup_effect()
-		"Android":
-			setup_effect()
-		"GenericDevice":
-			setup_effect_backup()
+	if OS.get_model_name() == "GenericDevice":
+		setup_effect_backup()
+	else:
+		setup_effect()
+	
 
 func _process(_delta: float) -> void:
 	if is_recording:
@@ -38,6 +37,14 @@ func setup_effect_backup():
 	back_up = true
 
 func _on_button_pressed() -> void:
+	var sequence = GameComposer.sequenser_node
+	sequence.prepare_for_recording()
+	GameComposer.sequenser_node._loop_completed.connect(record_on_Sequencer)
+	sequence.change_play_state.emit(true)
+	$Button.text = "Waiting"
+
+func _on_count_down():
+	GameComposer.sequenser_node.change_play_state.emit(false)
 	if back_up:
 		if not is_recording:
 			back_up_effect.clear_buffer()
@@ -51,14 +58,14 @@ func _on_button_pressed() -> void:
 func _on_timeout():
 	if back_up:
 		is_recording = false
-		GameComposer.set_rec_synths.emit(convert_to_wav(data))
+		GameComposer.set_rec_synth.emit(convert_to_wav(data))
 		$Button.text = "Record"
 		return
 	if effect == null: setup_effect()
 	if effect.is_recording_active():
 		recording = effect.get_recording()
 		effect.set_recording_active(false)
-		GameComposer.set_rec_synths.emit(recording)
+		GameComposer.set_rec_synth.emit(recording)
 	$Button.text = "Record"
 
 func _on_set_rec_button(button):
@@ -73,6 +80,13 @@ func _on_button_2_pressed() -> void:
 	print(_data.size())
 	$AudioStreamPlayer.stream = recording
 	$AudioStreamPlayer.play(0)
+
+func start_countdown():
+	count_down.wait_time = 3
+	count_down.timeout.connect(_on_count_down)
+	count_down.autostart = true
+	count_down.one_shot = true
+	add_child(count_down)
 
 func _set_timer():
 	if(GameComposer.sequenser_node != null):
@@ -99,3 +113,8 @@ func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
 	wav_stream.data = pcm_data  # Convert to byte array
 
 	return wav_stream
+
+func record_on_Sequencer():
+	get_tree().create_timer(0.1).timeout.connect(_on_count_down)
+	GameComposer.stop_all_players.emit()
+	GameComposer.sequenser_node._loop_completed.disconnect(record_on_Sequencer)

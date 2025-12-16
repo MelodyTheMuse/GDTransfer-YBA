@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://npqj1vgoaprl"]
+
+[ext_resource type="Script" uid="uid://bmi5888wyeyve" path="res://Testing/testmidi.gd" id="1_0y7bq"]
+
+[node name="Miditest" type="Node2D"]
+script = ExtResource("1_0y7bq")
