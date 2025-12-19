@@ -1,24 +1,80 @@
-[gd_scene load_steps=7 format=3 uid="uid://drve3dbd8563v"]
+[gd_scene load_steps=17 format=3 uid="uid://drve3dbd8563v"]
 
 [ext_resource type="Script" uid="uid://d1bdln6uwrmsj" path="res://Scripts/PackedScenes/16_beat_game_scene.gd" id="1_5n7wb"]
-[ext_resource type="PackedScene" uid="uid://swjjvixiy8lt" path="res://Scenes/audio_composer.tscn" id="2_id73f"]
 [ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Scenes/sequenser.tscn" id="2_qn3dc"]
 [ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="3_auiup"]
 [ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="4_i2hho"]
+[ext_resource type="Resource" uid="uid://b1y23v1qokfb" path="res://Resources/beat_klap_button.tres" id="6_28asr"]
 [ext_resource type="PackedScene" uid="uid://0ok1ysn3laip" path="res://Scenes/voice_recording.tscn" id="6_ak7c0"]
+[ext_resource type="PackedScene" uid="uid://di02eq5j45jpe" path="res://Scenes/audio_track.tscn" id="7_1r7n7"]
+[ext_resource type="Resource" uid="uid://ohdqwhjs2otw" path="res://Resources/beat_trompet_button.tres" id="7_mj72x"]
+[ext_resource type="Resource" uid="uid://77glw7d08e2h" path="res://Resources/beat_hihat_button.tres" id="8_ga2nm"]
+[ext_resource type="Resource" uid="uid://c4aoy3156nbvg" path="res://Resources/beat_stomp_button.tres" id="8_ofjgt"]
+[ext_resource type="Resource" uid="uid://cb7fdcw0amy4u" path="res://Resources/audio_track_green.tres" id="9_ga2nm"]
+[ext_resource type="Resource" uid="uid://d4dewho301e5v" path="res://Resources/audio_track_pruple.tres" id="10_gyx2u"]
+[ext_resource type="Texture2D" uid="uid://b4va4wy848jah" path="res://Assets/Sprites/New Assets/Art Assets/Backgrounds/_0001_BG-Inverse-1080p.png" id="13_ga2nm"]
+[ext_resource type="Texture2D" uid="uid://3sxfmvrfe00l" path="res://Assets/Sprites/New Assets/Art Assets/Backgrounds/Gradient Top Purple.png" id="14_gyx2u"]
+[ext_resource type="Texture2D" uid="uid://d4ey4wjaxtguo" path="res://Assets/Sprites/New Assets/Art Assets/Backgrounds/Gradient Top Grey.png" id="15_sdquk"]
+[ext_resource type="Texture2D" uid="uid://ddrf77mipimd2" path="res://Assets/Sprites/New Assets/Art Assets/Layout 11 Dec 25.png" id="16_rfsnl"]
 
 [node name="16BeatGameScene" type="Node2D"]
 script = ExtResource("1_5n7wb")
 
-[node name="AudioComposer" parent="." instance=ExtResource("2_id73f")]
-
 [node name="Sequencer" parent="." instance=ExtResource("2_qn3dc")]
 notes_per_beat = 16
 
-[node name="PlayPauseButtonHolder" parent="." instance=ExtResource("4_i2hho")]
-position = Vector2(619, 332)
+[node name="Audio_tracks" type="Node" parent="."]
+
+[node name="Stomp_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+beat_ring_resource = ExtResource("8_ofjgt")
+
+[node name="Klap_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+beat_ring_resource = ExtResource("6_28asr")
+
+[node name="snare_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+beat_ring_resource = ExtResource("7_mj72x")
+
+[node name="hihat_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+beat_ring_resource = ExtResource("8_ga2nm")
+
+[node name="green_synth_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+track_resource = ExtResource("9_ga2nm")
+
+[node name="purple_synth_track" parent="Audio_tracks" instance=ExtResource("7_1r7n7")]
+track_resource = ExtResource("10_gyx2u")
 
 [node name="BeatRing" parent="." instance=ExtResource("3_auiup")]
-position = Vector2(619, 332)
+position = Vector2(531, 399)
+
+[node name="PlayPauseButtonHolder" parent="BeatRing" instance=ExtResource("4_i2hho")]
+position = Vector2(5, 0)
 
 [node name="VoiceRecording" parent="." instance=ExtResource("6_ak7c0")]
+position = Vector2(60, 104)
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -2
+follow_viewport_enabled = true
+follow_viewport_scale = 0.75
+
+[node name="Background" type="Sprite2D" parent="Background"]
+visible = false
+position = Vector2(636, 356)
+texture = ExtResource("13_ga2nm")
+
+[node name="Gradient Grey" type="Sprite2D" parent="Background"]
+visible = false
+position = Vector2(628, 360)
+texture = ExtResource("15_sdquk")
+
+[node name="Gradient Purple" type="Sprite2D" parent="Background"]
+visible = false
+position = Vector2(628, 360)
+texture = ExtResource("14_gyx2u")
+
+[node name="example" type="Sprite2D" parent="Background"]
+visible = false
+modulate = Color(1, 1, 1, 0.14117648)
+position = Vector2(642.66675, 362.66666)
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("16_rfsnl")

@@ -12,10 +12,11 @@ var audio_backup:bool = false
 #Should more items come to the button that need to be colored, for loop should be used instead.
 func _ready() -> void:
 	_get_index()
-	scale = Vector2(0.5,0.5)
+	scale = Vector2(0.4,0.4)
 	ring.texture = resource.get_empty_texture()
 	filling.texture = resource.get_fill_texture()
 	GameComposer.use_back_up.connect(_on_audio_back_up)
+	rotate_based_on_index()
 
 #When pressing the button we set it active, true or false, and fill it in true or false
 func _on_texture_button_pressed() -> void:
@@ -44,3 +45,11 @@ func _get_index():
 		if c == self:
 			break
 		index+=1
+
+func rotate_based_on_index():
+	var degree:float = 360.0 / get_parent().get_child_count() as float
+	rotation_degrees = degree * index
+	if resource.type_ring == beat_ring_button_resource.ring_types.HIHAT:
+		print(index, " Index")
+		print(degree, " Degree")
+		print(degree * index, " Sum")

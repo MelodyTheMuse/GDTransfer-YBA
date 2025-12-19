@@ -1,10 +1,19 @@
-[gd_resource type="Resource" script_class="beat_ring_button_resource" load_steps=3 format=3 uid="uid://b1y23v1qokfb"]
+[gd_resource type="Resource" script_class="beat_ring_button_resource" load_steps=12 format=3 uid="uid://b1y23v1qokfb"]
 
+[ext_resource type="Texture2D" uid="uid://cycm0pnus502t" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Blue_Empty.png" id="1_cbak8"]
 [ext_resource type="AudioStream" uid="uid://c4l8yshny6otm" path="res://Assets/Audio/back_up/clap.wav" id="1_oygnr"]
 [ext_resource type="Script" uid="uid://8kfvwo1wf6qc" path="res://Scripts/Resources/beat_ring_button_resource.gd" id="2_ax28e"]
-
+[ext_resource type="Texture2D" uid="uid://coeqa87ckwiob" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Blue_Drop.png" id="2_l6h67"]
+[ext_resource type="Texture2D" uid="uid://don2vtttob1ok" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Orange_Empty.png" id="3_syc82"]
+[ext_resource type="Texture2D" uid="uid://eit88qu763uw" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Orange-Star.png" id="4_w3m0n"]
+[ext_resource type="Texture2D" uid="uid://c84voksibv63b" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Pink_Empty.png" id="5_lgxx8"]
+[ext_resource type="Texture2D" uid="uid://dpibln5wbbual" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Pink_ROUND.png" id="6_1gr0v"]
+[ext_resource type="Texture2D" uid="uid://d2eebaunur4yi" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Green_Empty.png" id="7_yct3a"]
+[ext_resource type="Texture2D" uid="uid://gmumg5k2imv8" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Green-Clover.png" id="8_4qww5"]
+[ext_resource type="Resource" uid="uid://upar0xbf2mum" path="res://Assets/Audio/back_up/default.tres" id="9_1xrib"]
 
 [resource]
 script = ExtResource("2_ax28e")
 default_audio = ExtResource("1_oygnr")
+back_up_bank = ExtResource("9_1xrib")
 metadata/_custom_type_script = "uid://8kfvwo1wf6qc"
