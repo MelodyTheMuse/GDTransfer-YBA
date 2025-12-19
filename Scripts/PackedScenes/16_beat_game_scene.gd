@@ -10,5 +10,3 @@ func _ready() -> void:
 		print("file saved")
 	if error == OK:
 		GameComposer.start_game.emit()
-func _process(_delta: float) -> void:
-	pass

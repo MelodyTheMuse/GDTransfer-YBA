@@ -11,10 +11,10 @@ signal set_sequenser(sequence)
 signal set_audio_composer(audiocomposer)
 signal use_back_up
 #Audio signals
-signal set_rec_synth(recording)
-signal play_synth(_time)
+signal set_rec_synth(recording,resource:audio_track_resource.synths)
+signal play_synth(_time,resource:audio_track_resource.synths)
 signal stop_synth()
-signal play_ring_type(ring_type:beat_ring_button_resource.ring_types)
+signal play_ring_type(resource:beat_ring_button_resource)
 signal stop_all_players()
 
 func _ready() -> void:
@@ -33,7 +33,7 @@ func _on_set_audio_composer(audiocomposer):
 	if audio_composer_node == null:
 		audio_composer_node = audiocomposer
 
-func _on_fetch_sequenser():
+func on_fetch_sequenser():
 	if sequenser_node == null: 
 		use_back_up.emit()
 		push_error("Sequenser was not found please check scene")

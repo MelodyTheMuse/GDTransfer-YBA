@@ -14,7 +14,7 @@ class_name audio_composer
 var green_rec
 var green_index = 0
 var purple_index = 1
-var backup_bank:audio_bank = preload("res://Assets/Audio/back_up/default.tres")
+@export var backup_bank:audio_bank 
 var stomp_ring:Node2D
 var klap_ring:Node2D
 var hihat_ring:Node2D
