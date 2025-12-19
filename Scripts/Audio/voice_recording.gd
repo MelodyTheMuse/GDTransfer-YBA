@@ -1,22 +1,25 @@
 extends Node
+
 @export var play_button:Node2D
+@onready var sequencer: sequenzer = GameComposer.sequenser_node
+
 var effect:AudioEffectRecord
 var recording
-var rec_time = 4
-var rec_button
+var rec_time:float = 4
+var rec_button:Button
 var back_up_effect:AudioEffectCapture
-var is_recording
+var is_recording:bool
 var data:Array
-var back_up = false
-var capture_mix_rate
+var back_up:bool = false
+var capture_mix_rate:float
 var count_down :Timer = Timer.new()
 
 func _ready() -> void:
+	if sequencer == null : sequencer = GameComposer.sequenser_node
 	if OS.get_model_name() == "GenericDevice":
 		setup_effect_backup()
 	else:
 		setup_effect()
-	
 
 func _process(_delta: float) -> void:
 	if is_recording:
@@ -36,15 +39,8 @@ func setup_effect_backup():
 	capture_mix_rate = AudioServer.get_input_mix_rate()
 	back_up = true
 
-func _on_button_pressed() -> void:
-	var sequence = GameComposer.sequenser_node
-	sequence.prepare_for_recording()
-	GameComposer.sequenser_node._loop_completed.connect(record_on_Sequencer)
-	sequence.change_play_state.emit(true)
-	$Button.text = "Waiting"
-
-func _on_count_down():
-	GameComposer.sequenser_node.change_play_state.emit(false)
+func _start_recording():
+	sequencer.change_play_state.emit(false)
 	if back_up:
 		if not is_recording:
 			back_up_effect.clear_buffer()
@@ -52,46 +48,33 @@ func _on_count_down():
 			is_recording = true
 	else:
 		effect.set_recording_active(true)
-	$Button.text = "Stop"
-	_set_timer()
+	#$"Voice button".text = "Stop"
+	_create_timer()
 
-func _on_timeout():
+func _on_timer_timeout():
 	if back_up:
 		is_recording = false
 		GameComposer.set_rec_synth.emit(convert_to_wav(data))
-		$Button.text = "Record"
+		#$"Voice button".text = "Record"
+		$"Voice button/Empty".visible = false
+		$"Voice button/Recorded".visible = true
 		return
-	if effect == null: setup_effect()
+	
 	if effect.is_recording_active():
 		recording = effect.get_recording()
 		effect.set_recording_active(false)
-		GameComposer.set_rec_synth.emit(recording)
-	$Button.text = "Record"
+		GameComposer.set_rec_synth.emit(recording, audio_track_resource.synths.GREEN)
+		$"Voice button/Empty".visible = false
+		$"Voice button/Recorded".visible = true
+		#$"Voice button".text = "Record"
 
 func _on_set_rec_button(button):
 	rec_button = button
 
-func _on_button_2_pressed() -> void:
-	print(recording)
-	print(recording.format)
-	print(recording.mix_rate)
-	print(recording.stereo)
-	var _data = recording.get_data()
-	print(_data.size())
-	$AudioStreamPlayer.stream = recording
-	$AudioStreamPlayer.play(0)
-
-func start_countdown():
-	count_down.wait_time = 3
-	count_down.timeout.connect(_on_count_down)
-	count_down.autostart = true
-	count_down.one_shot = true
-	add_child(count_down)
-
-func _set_timer():
-	if(GameComposer.sequenser_node != null):
-		rec_time = GameComposer.sequenser_node.note_length * GameComposer.sequenser_node.notes_per_beat
-	get_tree().create_timer(rec_time).timeout.connect(_on_timeout)
+func _create_timer():
+	if(sequencer != null):
+		rec_time = sequencer.note_length * sequencer.notes_per_beat
+	get_tree().create_timer(rec_time).timeout.connect(_on_timer_timeout)
 
 #Code taken from https://github.com/godotengine/godot/issues/102316
 func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
@@ -115,6 +98,15 @@ func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
 	return wav_stream
 
 func record_on_Sequencer():
-	get_tree().create_timer(0.1).timeout.connect(_on_count_down)
+	get_tree().create_timer(0.1).timeout.connect(_start_recording)
 	GameComposer.stop_all_players.emit()
-	GameComposer.sequenser_node._loop_completed.disconnect(record_on_Sequencer)
+	sequencer.loop_completed.disconnect(record_on_Sequencer)
+
+func _on_voice_button_pressed() -> void:
+	if sequencer == null: 
+		push_error(ERR_DOES_NOT_EXIST, " Sequencer Doesn't exist")
+		return
+	sequencer.prepare_for_recording()
+	sequencer.loop_completed.connect(record_on_Sequencer)
+	sequencer.change_play_state.emit(true)
+	#$"Voice button".text = "Waiting"

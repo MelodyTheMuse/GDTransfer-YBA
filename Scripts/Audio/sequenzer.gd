@@ -35,7 +35,7 @@ var record:bool = false
 signal change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int)
 signal change_play_state(active)
 signal set_song_settings(bank:audio_bank)
-signal _loop_completed()
+signal loop_completed()
 
 func _ready() -> void:
 	name = "sequenser"
@@ -46,7 +46,7 @@ func _ready() -> void:
 	_set_value_notes_dictionary_for_ring_strings()
 	_setup_timer(ring_timer)
 	GameComposer.set_sequenser.emit(self)
-	_loop_completed.connect(on_loop_completed)
+	loop_completed.connect(on_loop_completed)
 
 #This fucntion set's the array sizes based on notes_per_beat
 func _set_array_sizes():
@@ -80,7 +80,7 @@ func _process(delta: float) -> void:
 	seconds = fmod(_total_time,fixed_seconds)
 	if(current_note >= notes_per_beat):
 		_reset_counters()
-		_loop_completed.emit()
+		loop_completed.emit()
 	if(_beat == beats_per_section):
 		pass
 
@@ -109,20 +109,6 @@ func _reset_dictionary():
 	for c in notes:
 		notes.set(c,0) 
 
-#func _players_setup():
-	#kick_player.stream = metronome_sound
-	#kick_player.set_bus("Ring0") 
-	#klap_player.stream = alt_sound
-	#klap_player.set_bus("Ring1")
-	#trompet_player.stream = trompet_sound
-	#trompet_player.set_bus("Ring2")
-	#hihat_player.stream = hihat_sound
-	#hihat_player.set_bus("Ring3")
-	#add_child(kick_player)
-	#add_child(klap_player)
-	#add_child(trompet_player)
-	#add_child(hihat_player)
-
 #This happens only on backup, play on local audioStreamPlayer based on  given array string and player
 func _on_play(ring_array:Array, ring_string:String, ring_player:AudioStreamPlayer):
 	var i:int
@@ -149,7 +135,7 @@ func _reset_counters():
 	_total_time = 0
 	_beat = 0
 	current_note = 1
-	GameComposer.play_synth.emit(_total_time)
+	GameComposer.play_synth.emit(_total_time,audio_track_resource.synths.GREEN)
 	_reset_dictionary()
 
 #Check if it is allowed to play based on the index value of the dictionary 

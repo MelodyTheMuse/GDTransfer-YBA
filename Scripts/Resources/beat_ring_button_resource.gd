@@ -2,6 +2,7 @@ extends Resource
 class_name beat_ring_button_resource
 
 @export var default_audio: AudioStream
+@export var back_up_bank:audio_bank 
 @export var type_ring: ring_types
 enum ring_types{
 	KLAP,

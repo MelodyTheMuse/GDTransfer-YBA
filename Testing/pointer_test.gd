@@ -1,5 +1,5 @@
 extends Sprite2D
-@onready var sequencer :sequenzer = GameComposer._on_fetch_sequenser()
+@onready var sequencer :sequenzer = GameComposer.sequenser_node
 var active:bool = false
 
 func _ready() -> void:

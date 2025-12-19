@@ -5,6 +5,7 @@ var clock =0.0
 var delay = true
 var midin = MidiIn.new()
 var midiout = MidiOut.new()
+
 func _ready():
 	midin.open_port(0)
 	midin.midi_message.connect(_on_midi_message)
