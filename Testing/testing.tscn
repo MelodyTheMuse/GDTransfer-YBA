@@ -1,13 +1,13 @@
 [gd_scene load_steps=10 format=3 uid="uid://3dep68bsik08"]
 
 [ext_resource type="Script" uid="uid://dxlbptgsmvwmt" path="res://Testing/testing.gd" id="1_i85nf"]
-[ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/play_pause_button.tscn" id="2_30t8r"]
-[ext_resource type="PackedScene" uid="uid://swjjvixiy8lt" path="res://Scenes/audio_composer.tscn" id="2_coxpv"]
-[ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/beat_ring_16.tscn" id="2_qmwc1"]
-[ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Scenes/sequenser.tscn" id="3_a23fp"]
+[ext_resource type="PackedScene" uid="uid://d3agsq8kdovh2" path="res://Scenes/objects/play_pause_button.tscn" id="2_30t8r"]
+[ext_resource type="PackedScene" uid="uid://swjjvixiy8lt" path="res://Scenes/objects/audio_composer.tscn" id="2_coxpv"]
+[ext_resource type="PackedScene" uid="uid://bpbqks1sddams" path="res://Scenes/objects/beat_ring_16.tscn" id="2_qmwc1"]
+[ext_resource type="PackedScene" uid="uid://k50godrgagpl" path="res://Scenes/objects/sequenser.tscn" id="3_a23fp"]
 [ext_resource type="Resource" uid="uid://upar0xbf2mum" path="res://Assets/Audio/back_up/default.tres" id="3_i85nf"]
 [ext_resource type="Script" uid="uid://ba3ni1d6gvtuo" path="res://Testing/test.gd" id="6_lbw5q"]
-[ext_resource type="PackedScene" uid="uid://0ok1ysn3laip" path="res://Scenes/voice_recording.tscn" id="7_a23fp"]
+[ext_resource type="PackedScene" uid="uid://0ok1ysn3laip" path="res://Scenes/General/voice_recording.tscn" id="7_a23fp"]
 [ext_resource type="PackedScene" uid="uid://cxvsak3k413is" path="res://Testing/Effect_change.tscn" id="8_40w3p"]
 
 [node name="Testing" type="Node2D"]

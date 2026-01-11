@@ -2,6 +2,7 @@ extends Node2D
 @onready var ring:Sprite2D= $Ring
 @onready var filling:Sprite2D =$Filling
 @export var resource:beat_ring_button_resource
+@export var button_scale:Vector2 = Vector2(0.4,0.4)
 var back_up_player:AudioStreamPlayer 
 
 var index:int = 0
@@ -12,7 +13,7 @@ var audio_backup:bool = false
 #Should more items come to the button that need to be colored, for loop should be used instead.
 func _ready() -> void:
 	_get_index()
-	scale = Vector2(0.4,0.4)
+	scale = button_scale
 	ring.texture = resource.get_empty_texture()
 	filling.texture = resource.get_fill_texture()
 	GameComposer.use_back_up.connect(_on_audio_back_up)
@@ -49,7 +50,3 @@ func _get_index():
 func rotate_based_on_index():
 	var degree:float = 360.0 / get_parent().get_child_count() as float
 	rotation_degrees = degree * index
-	if resource.type_ring == beat_ring_button_resource.ring_types.HIHAT:
-		print(index, " Index")
-		print(degree, " Degree")
-		print(degree * index, " Sum")

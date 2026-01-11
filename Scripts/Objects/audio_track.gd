@@ -8,10 +8,6 @@ class_name audio_track
 @export var bank:audio_bank
 @export var beat_ring_resource: beat_ring_button_resource
 @export var track_resource:audio_track_resource
-var stomp_ring:Node2D
-var klap_ring:Node2D
-var hihat_ring:Node2D
-var trompet_ring:Node2D
 
 var primary_player = 0
 var alternative_player = 1
@@ -103,15 +99,7 @@ func _fill_players(_bank:audio_bank):
 #This sets the stream and creates the synth if it doesn't exist already
 func _on_set_rec_synth(recording,resource:audio_track_resource.synths):
 	if resource != track_resource.synth:return
-	if players[recording_player] == null:
-		var temp = players[recording_player] 
-		temp = AudioStreamPlayer.new()
-		temp.stream = recording
-		temp.set_bus("GreenVoice")
-		players[recording_player] = temp
-		add_child(players[recording_player])
-	else:
-		players[recording_player].stream = recording
+	players[recording_player].stream = recording
 
 #This func starts the synth stream based on the time given
 func _on_play_synth(_time,resource:audio_track_resource.synths):
