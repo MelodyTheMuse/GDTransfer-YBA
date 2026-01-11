@@ -22,7 +22,7 @@ driver/enable_input=true
 
 [autoload]
 
-BpmManager="*res://bpm_manager.gd"
+BpmManager="*res://Testing/bpm_manager.gd"
 GameComposer="*res://Scripts/Objects/game_composer.gd"
 
 [display]

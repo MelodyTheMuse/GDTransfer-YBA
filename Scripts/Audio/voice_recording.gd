@@ -54,7 +54,7 @@ func _start_recording():
 func _on_timer_timeout():
 	if back_up:
 		is_recording = false
-		GameComposer.set_rec_synth.emit(convert_to_wav(data))
+		GameComposer.set_rec_synth.emit(convert_to_wav(data),audio_track_resource.synths.GREEN)
 		#$"Voice button".text = "Record"
 		$"Voice button/Empty".visible = false
 		$"Voice button/Recorded".visible = true
