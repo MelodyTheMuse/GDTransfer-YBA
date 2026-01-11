@@ -1,13 +1,16 @@
 extends Node2D
-@onready var play_pause_button = $PlayPauseButton
+
 var _active:bool
+
+@onready var play_pause_button = $PlayPauseButton
 @onready var sequenser:sequenzer = GameComposer.sequenser_node
+
 signal play_button_pressed()
 
 func _ready() -> void:
 	if sequenser == null : sequenser = GameComposer.sequenser_node
-	OS.open_midi_inputs()
-	print(OS.get_connected_midi_inputs())
+
+
 
 func _on_play_pause_button_button_up() -> void:
 	pass
