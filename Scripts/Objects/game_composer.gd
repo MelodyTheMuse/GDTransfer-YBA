@@ -1,11 +1,9 @@
 extends Node
 class_name game_composer
-
-var sequenser_node:sequenzer
 var started_game:bool = false
 
 signal start_game()
-signal set_sequenser(sequence)
+#signal set_sequenser(sequence)
 signal use_back_up
 #Audio signals
 signal set_rec_synth(recording,resource:audio_track_resource.synths)
@@ -27,17 +25,17 @@ signal change_play_state(active)
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)
-	set_sequenser.connect(_on_set_sequenser)
+	#set_sequenser.connect(_on_set_sequenser)
 
 func _on_start_game():
 	started_game = true
 
-func _on_set_sequenser(seq):
-	if sequenser_node == null: 
-		sequenser_node = seq
-
-func on_fetch_sequenser():
-	if sequenser_node == null: 
-		use_back_up.emit()
-		push_error("Sequenser was not found please check scene")
-	return sequenser_node
+#func _on_set_sequenser(seq):
+	#if sequenser_node == null: 
+		#sequenser_node = seq
+#
+#func on_fetch_sequenser():
+	#if sequenser_node == null: 
+		#use_back_up.emit()
+		#push_error("Sequenser was not found please check scene")
+	#return sequenser_node
