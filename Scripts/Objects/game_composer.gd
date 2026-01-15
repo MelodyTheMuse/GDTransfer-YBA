@@ -21,6 +21,9 @@ signal set_seconds(sec)
 signal set_note_length(note_length)
 signal set_notes_per_beat(notes)
 signal change_note_active_status(beat_ring_enum:beat_ring_button_resource.ring_types, note:int)
+signal prepare_for_recording
+signal loop_completed
+signal change_play_state(active)
 
 func _ready() -> void:
 	start_game.connect(_on_start_game)
