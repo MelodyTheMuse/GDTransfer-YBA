@@ -3,24 +3,23 @@ extends Node2D
 var _active:bool
 
 @onready var play_pause_button = $PlayPauseButton
-@onready var sequenser:sequenzer = GameComposer.sequenser_node
 
 signal play_button_pressed()
+var seconds: float
 
 func _ready() -> void:
-	if sequenser == null : sequenser = GameComposer.sequenser_node
-
-
+	GameComposer.set_seconds.connect(on_set_seconds)
 
 func _on_play_pause_button_button_up() -> void:
 	pass
 
 func _on_play_pause_button_pressed() -> void:
 	_active = !_active
-	if sequenser != null:sequenser.change_play_state.emit(_active)
+	GameComposer.change_play_state.emit(_active)
 	match _active:
 		true:
-			GameComposer.play_synth.emit(sequenser._total_time,audio_track_resource.synths.GREEN)
+			GameComposer.retrieve_seconds.emit()
+			GameComposer.play_synth.emit(seconds,audio_track_resource.synths.GREEN)
 			play_pause_button.text = "⏸️"
 		false: 
 			GameComposer.stop_synth.emit()
@@ -47,3 +46,6 @@ func _print_midi_info(midi_event):
 func _input(input_event):
 	if input_event is InputEventMIDI:
 		_print_midi_info(input_event)
+
+func on_set_seconds(sec):
+	seconds = sec

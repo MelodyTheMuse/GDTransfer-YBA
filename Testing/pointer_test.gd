@@ -1,21 +1,35 @@
 extends Sprite2D
-@onready var sequencer :sequenzer = GameComposer.sequenser_node
 var active:bool = false
+var seconds:float
+var note_length :float
+var notes_per_beat
 
 func _ready() -> void:
 	sequencer.change_play_state.connect(_on_change_play_state)
+	GameComposer.set_notes_per_beat.connect(on_set_notes_per_beat)
+	GameComposer.set_seconds.connect(on_set_seconds)
+	GameComposer.set_note_length.connect(on_set_notes_length)
 func _process(_delta: float) -> void:
-	if sequencer == null : sequencer = GameComposer._on_fetch_sequenser()
+	if note_length == 0.0:
+		GameComposer.retrieve_note_length.emit()
+		GameComposer.set_note_length.disconnect(on_set_notes_length)
+	if notes_per_beat == null:
+		GameComposer.retrieve_notes_per_beat.emit()
+		GameComposer.set_notes_per_beat.disconnect(on_set_notes_per_beat)
 	if active:
-		var rotation_factor:float = (-1+(sequencer.seconds  / sequencer.note_length )) / sequencer.notes_per_beat
+		GameComposer.retrieve_seconds.emit()
+		var rotation_factor:float = (-1+(seconds  / note_length )) / notes_per_beat
 		var calc_rotation_degree:float  = rotation_factor * 360  - 7
 		rotation_degrees = calc_rotation_degree
-		#print("rotation_factor : ",rotation_factor) 
-		#print("float Facotr : ",calc_rotation_degree) 
-		#print("sequencer current beat : ",sequencer.current_beat)
-		#print("beat timer : ",sequencer.beat_timer)
-		#print("sequencer.time_per_beat : ",sequencer.time_per_beat)
-		#print(" sequencer.amount_of_beats : ", sequencer.amount_of_beats)
-
+	print(note_length, " length")
 func _on_change_play_state(state):
 	active = state
+
+func on_set_seconds(_sec):
+	seconds = _sec
+
+func on_set_notes_length(_note_length):
+	note_length = _note_length
+
+func on_set_notes_per_beat(_notes):
+	notes_per_beat = _notes
