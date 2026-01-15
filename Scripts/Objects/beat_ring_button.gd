@@ -41,12 +41,14 @@ func _on_audio_back_up():
 		back_up_player.stream = resource.default_audio
 	audio_backup = true
 
+#This func gets the index based on the position of this object in the list, needed for which note to set active/inactive
 func _get_index():
 	for c in get_parent().get_children():
 		if c == self:
 			break
 		index+=1
 
+#This func rotates the object based on the index that we are.
 func rotate_based_on_index():
 	var degree:float = 360.0 / get_parent().get_child_count() as float
 	rotation_degrees = degree * index

@@ -15,6 +15,7 @@ var count_down :Timer = Timer.new()
 var note_length
 var notes_per_beat
 
+#Ready checks if we need to use the record or capture effect
 func _ready() -> void:
 	GameComposer.set_note_length.connect(on_set_note_Length)
 	GameComposer.set_notes_per_beat.connect(on_set_notes_per_beat)
@@ -31,16 +32,19 @@ func _process(_delta: float) -> void:
 			for frame in buffer:
 				data.append(frame.x)  # Left channel
 
+#This gets the correct effect, in this case record effect
 func setup_effect():
 	var idx = AudioServer.get_bus_index("Microphone")
 	effect = AudioServer.get_bus_effect(idx, 1)
 
+#This gets the capture effect, in case the record effect isn't usable
 func setup_effect_backup():
 	var idx = AudioServer.get_bus_index("Microphone")
 	back_up_effect = AudioServer.get_bus_effect(idx, 0)
 	capture_mix_rate = AudioServer.get_input_mix_rate()
 	back_up = true
 
+#We start the recording on either the capture (back_up) effect or the recording effect
 func _start_recording():
 	GameComposer.change_play_state.emit(false)
 	if back_up:
@@ -53,6 +57,7 @@ func _start_recording():
 	#$"Voice button".text = "Stop"
 	_create_timer()
 
+#After the timer has ended we stop the recordings and send the file via the composer to the track
 func _on_timer_timeout():
 	if back_up:
 		is_recording = false
@@ -70,9 +75,11 @@ func _on_timer_timeout():
 		$"Voice button/Recorded".visible = true
 		#$"Voice button".text = "Record"
 
+#This sets the record button
 func _on_set_rec_button(button):
 	rec_button = button
 
+#This creates the timer based on the note_length * the amount of notes
 func _create_timer():
 	if note_length == null:
 		GameComposer.retrieve_note_length.emit()
@@ -82,10 +89,12 @@ func _create_timer():
 		GameComposer.set_notes_per_beat.disconnect(on_set_notes_per_beat)
 	rec_time = note_length * notes_per_beat
 	get_tree().create_timer(rec_time).timeout.connect(_on_timer_timeout)
-	
+
+#This is for the signal set_note_length, this is so we can use it in create timer
 func on_set_note_Length(length):
 	note_length = length
 
+#This is for the signal set_notes_per_beat, this is so we can use it in create timer
 func on_set_notes_per_beat(notes):
 	notes_per_beat = notes
 
@@ -110,11 +119,13 @@ func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
 
 	return wav_stream
 
+#This is what creates the timer, for a slight delay, that starts the recording, it also disconnects a signal
 func record_on_Sequencer():
 	get_tree().create_timer(0.1).timeout.connect(_start_recording)
 	GameComposer.stop_all_players.emit()
 	GameComposer.loop_completed.disconnect(record_on_Sequencer)
 
+#This is the connected signal for the button, when you press it, it starts the system for recording
 func _on_voice_button_pressed() -> void:
 	GameComposer.prepare_for_recording.emit()
 	GameComposer.loop_completed.connect(record_on_Sequencer)
