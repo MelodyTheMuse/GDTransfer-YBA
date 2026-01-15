@@ -23,10 +23,12 @@ signal prepare_for_recording
 signal loop_completed
 signal change_play_state(active)
 
+#Connects start_game signal
 func _ready() -> void:
 	start_game.connect(_on_start_game)
 	#set_sequenser.connect(_on_set_sequenser)
 
+#This func sets started_game to true
 func _on_start_game():
 	started_game = true
 

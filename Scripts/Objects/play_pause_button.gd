@@ -7,12 +7,11 @@ var _active:bool
 signal play_button_pressed()
 var seconds: float
 
+#This func connects set_seconds signal
 func _ready() -> void:
 	GameComposer.set_seconds.connect(on_set_seconds)
 
-func _on_play_pause_button_button_up() -> void:
-	pass
-
+#This is the connected signal, when we press based on our active state we either send to play or stop the sequencer and synth
 func _on_play_pause_button_pressed() -> void:
 	_active = !_active
 	GameComposer.change_play_state.emit(_active)
@@ -26,6 +25,7 @@ func _on_play_pause_button_pressed() -> void:
 			play_pause_button.text = "▶️"
 	play_button_pressed.emit()
 
+#Was for testing
 func _print_midi_info(midi_event):
 	#if delay: return
 	if(midi_event.message == 250):
@@ -43,9 +43,11 @@ func _print_midi_info(midi_event):
 			#bpm = bps * 6
 			#print("Your bpm is ", bpm)
 
+#Was for testing
 func _input(input_event):
 	if input_event is InputEventMIDI:
 		_print_midi_info(input_event)
 
+#For the signal set_seconds
 func on_set_seconds(sec):
 	seconds = sec
