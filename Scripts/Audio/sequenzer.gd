@@ -32,14 +32,13 @@ var hihat_ring:Array[bool]
 
 var record:bool = false
 
-signal change_play_state(active)
+
 signal set_song_settings(bank:audio_bank)
-signal loop_completed()
 
 func _ready() -> void:
 	name = "sequenser"
 	GameComposer.change_note_active_status.connect(_on_change_note_active_status)
-	change_play_state.connect(_on_change_play_state)
+	GameComposer.change_play_state.connect(_on_change_play_state)
 	_calculate_beat_and_note_length()
 	_set_array_sizes()
 	_set_value_notes_dictionary_for_ring_strings()
@@ -48,7 +47,7 @@ func _ready() -> void:
 	GameComposer.retrieve_notes_per_beat.connect(_on_retrieve_notes_per_beat)
 	GameComposer.retrieve_note_length.connect(_on_retrieve_note_length)
 	GameComposer.retrieve_seconds.connect(_on_retrieve_seconds)
-	loop_completed.connect(on_loop_completed)
+	GameComposer.loop_completed.connect(on_loop_completed)
 
 #This fucntion set's the array sizes based on notes_per_beat
 func _set_array_sizes():
@@ -82,7 +81,7 @@ func _process(delta: float) -> void:
 	seconds = fmod(_total_time,fixed_seconds)
 	if(current_note >= notes_per_beat):
 		_reset_counters()
-		loop_completed.emit()
+		GameComposer.loop_completed.emit()
 	if(_beat == beats_per_section):
 		pass
 
