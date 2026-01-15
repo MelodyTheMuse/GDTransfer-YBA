@@ -35,6 +35,7 @@ var record:bool = false
 
 signal set_song_settings(bank:audio_bank)
 
+#This func connects multiple signals as well as setting up the sequencer timer and arrays
 func _ready() -> void:
 	name = "sequenser"
 	GameComposer.change_note_active_status.connect(_on_change_note_active_status)
@@ -43,7 +44,6 @@ func _ready() -> void:
 	_set_array_sizes()
 	_set_value_notes_dictionary_for_ring_strings()
 	_setup_timer(ring_timer)
-	GameComposer.set_sequenser.emit(self)
 	GameComposer.retrieve_notes_per_beat.connect(_on_retrieve_notes_per_beat)
 	GameComposer.retrieve_note_length.connect(_on_retrieve_note_length)
 	GameComposer.retrieve_seconds.connect(_on_retrieve_seconds)
@@ -74,6 +74,7 @@ func _calculate_beat_and_note_length():
 	note_length = beat_length / beats_per_section
 	print("note_length ",note_length)
 
+#Updates the seconds and resets if max hit
 func _process(delta: float) -> void:
 	if !playing: 
 		return
@@ -176,19 +177,24 @@ func _on_timeout():
 func _on_set_song_setting(bank:audio_bank):
 	pass
 
+#This func sets the sequencer back to the start for recording
 func prepare_for_recording():
 	record = true
 	_on_change_play_state(false)
 	_reset_counters()
 
+#This func is for when we complete a loop and sets recording to false
 func on_loop_completed():
 	record = false
 
+#This func emits set_seconds
 func _on_retrieve_seconds():
 	GameComposer.set_seconds.emit(seconds)
 
+#This func emits set_note_length
 func _on_retrieve_note_length():
 	GameComposer.set_note_length.emit(note_length)
 
+#This func emits set_notes_oer_beat
 func _on_retrieve_notes_per_beat():
 	GameComposer.set_notes_per_beat.emit(notes_per_beat)

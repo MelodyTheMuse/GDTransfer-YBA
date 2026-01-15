@@ -114,6 +114,7 @@ func _on_stop_synth():
 		if c != null:
 			c.stop()
 
+#This fucn stops all players
 func _on_stop_all_player():
 	print("stopped players")
 	for player in players:
