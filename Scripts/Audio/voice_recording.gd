@@ -1,7 +1,6 @@
 extends Node
 
 @export var play_button:Node2D
-@onready var sequencer: sequenzer = GameComposer.sequenser_node
 
 var effect:AudioEffectRecord
 var recording
@@ -13,9 +12,12 @@ var data:Array
 var back_up:bool = false
 var capture_mix_rate:float
 var count_down :Timer = Timer.new()
+var note_length
+var notes_per_beat
 
 func _ready() -> void:
-	if sequencer == null : sequencer = GameComposer.sequenser_node
+	GameComposer.set_note_length.connect(on_set_note_Length)
+	GameComposer.set_notes_per_beat.connect(on_set_notes_per_beat)
 	if OS.get_model_name() == "GenericDevice":
 		setup_effect_backup()
 	else:
@@ -40,7 +42,7 @@ func setup_effect_backup():
 	back_up = true
 
 func _start_recording():
-	sequencer.change_play_state.emit(false)
+	GameComposer.change_play_state.emit(false)
 	if back_up:
 		if not is_recording:
 			back_up_effect.clear_buffer()
@@ -72,9 +74,20 @@ func _on_set_rec_button(button):
 	rec_button = button
 
 func _create_timer():
-	if(sequencer != null):
-		rec_time = sequencer.note_length * sequencer.notes_per_beat
+	if note_length == null:
+		GameComposer.retrieve_note_length.emit()
+		GameComposer.set_note_length.disconnect(on_set_note_Length)
+	if notes_per_beat == null:
+		GameComposer.retrieve_notes_per_beat.emit()
+		GameComposer.set_notes_per_beat.disconnect(on_set_notes_per_beat)
+	rec_time = note_length * notes_per_beat
 	get_tree().create_timer(rec_time).timeout.connect(_on_timer_timeout)
+	
+func on_set_note_Length(length):
+	note_length = length
+
+func on_set_notes_per_beat(notes):
+	notes_per_beat = notes
 
 #Code taken from https://github.com/godotengine/godot/issues/102316
 func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
@@ -100,13 +113,10 @@ func convert_to_wav(audio_data: PackedFloat32Array) -> AudioStreamWAV:
 func record_on_Sequencer():
 	get_tree().create_timer(0.1).timeout.connect(_start_recording)
 	GameComposer.stop_all_players.emit()
-	sequencer.loop_completed.disconnect(record_on_Sequencer)
+	GameComposer.loop_completed.disconnect(record_on_Sequencer)
 
 func _on_voice_button_pressed() -> void:
-	if sequencer == null: 
-		push_error(ERR_DOES_NOT_EXIST, " Sequencer Doesn't exist")
-		return
-	sequencer.prepare_for_recording()
-	sequencer.loop_completed.connect(record_on_Sequencer)
-	sequencer.change_play_state.emit(true)
+	GameComposer.prepare_for_recording.emit()
+	GameComposer.loop_completed.connect(record_on_Sequencer)
+	GameComposer.change_play_state.emit(true)
 	#$"Voice button".text = "Waiting"
