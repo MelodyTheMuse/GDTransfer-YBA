@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://0ok1ysn3laip"]
+[gd_scene load_steps=6 format=3 uid="uid://0ok1ysn3laip"]
 
 [ext_resource type="Script" uid="uid://b8fa5smifqh0v" path="res://Scripts/Audio/voice_recording.gd" id="1_kechc"]
 [ext_resource type="Texture2D" uid="uid://cygipfcbp2so3" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Yellow_Ring.png" id="2_4r45h"]
+[ext_resource type="Texture2D" uid="uid://bs4pggla5piq3" path="res://Assets/PNGs/Icons-_28_0004_Microphone.png" id="2_te6gq"]
 [ext_resource type="Texture2D" uid="uid://jyub5ikskuct" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Yellow_Empty.png" id="3_qw2oa"]
 
 [sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_kechc"]
@@ -24,11 +25,13 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1.4142118, 1.3659954)
 theme_override_font_sizes/font_size = 40
-text = "🎙️"
 flat = true
 icon_alignment = 1
 
 [node name="mic Icon" type="Sprite2D" parent="Voice button"]
+position = Vector2(62.579025, 44.290047)
+scale = Vector2(0.56629133, 0.49428073)
+texture = ExtResource("2_te6gq")
 
 [node name="Recorded" type="Sprite2D" parent="Voice button"]
 visible = false

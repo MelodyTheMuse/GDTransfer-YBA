@@ -24,7 +24,7 @@ func _on_texture_button_pressed() -> void:
 	active = !active
 	filling.visible= active
 	ring.visible = !active
-	GameComposer.sequenser_node.change_note_active_status.emit(resource.type_ring,index)
+	GameComposer.change_note_active_status.emit(resource.type_ring,index)
 
 #This signal connection is going to tell the system to play when this beat button gets hit by the needle
 func _on_area_2d_area_entered(_area: Area2D) -> void:

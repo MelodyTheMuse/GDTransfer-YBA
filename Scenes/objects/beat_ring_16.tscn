@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cirxgl8i4roch" path="res://Scenes/Beat Ring Buttons/beat_trumpet_button.tscn" id="4_5ts78"]
 [ext_resource type="PackedScene" uid="uid://djmbkapkesy4e" path="res://Scenes/Beat Ring Buttons/beathihat_button.tscn" id="5_fs87k"]
 [ext_resource type="PackedScene" uid="uid://cdeh3omwufpo6" path="res://Scenes/objects/pointer.tscn" id="6_nc0bc"]
-[ext_resource type="Script" uid="uid://d0xj5tscyc8l0" path="res://Testing/pointer_test.gd" id="7_a5c8e"]
+[ext_resource type="Script" uid="uid://d0xj5tscyc8l0" path="res://Scripts/Objects/pointer.gd" id="7_a5c8e"]
 
 [node name="BeatRing" type="Node2D"]
 position = Vector2(0, -1)

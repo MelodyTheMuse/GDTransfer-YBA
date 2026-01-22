@@ -24,7 +24,6 @@ func _process(_delta: float) -> void:
 		var rotation_factor:float = (-1+(seconds  / note_length )) / notes_per_beat
 		var calc_rotation_degree:float  = rotation_factor * 360  - 7
 		rotation_degrees = calc_rotation_degree
-	print(note_length, " length")
 #This is for the connected signal Change_play_state
 func _on_change_play_state(state):
 	active = state

@@ -70,7 +70,7 @@ func _setup_players():
 			audio_track_resource.synths.GREEN:
 				players.get(primary_player).set_bus("Green")
 				players.get(alternative_player).set_bus("Green_alt")
-				players.get(recording_player).set_bus("GreenVoice")
+				players.get(recording_player).set_bus("Green")
 			audio_track_resource.synths.PURPLE:
 				players.get(primary_player).set_bus("Pruple")
 				players.get(alternative_player).set_bus("Purple_alt")
@@ -100,6 +100,7 @@ func _fill_players(_bank:audio_bank):
 func _on_set_rec_synth(recording,resource:audio_track_resource.synths):
 	if resource != track_resource.synth:return
 	players[recording_player].stream = recording
+	print(recording)
 
 #This func starts the synth stream based on the time given
 func _on_play_synth(_time,resource:audio_track_resource.synths):
@@ -107,6 +108,7 @@ func _on_play_synth(_time,resource:audio_track_resource.synths):
 	for c in players:
 		if c != null:
 			c.play(_time)
+			print("play")
 
 #This func stops the synth from playing
 func _on_stop_synth():
