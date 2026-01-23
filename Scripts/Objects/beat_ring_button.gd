@@ -14,8 +14,8 @@ var audio_backup:bool = false
 func _ready() -> void:
 	_get_index()
 	scale = button_scale
-	ring.texture = resource.get_empty_texture()
-	filling.texture = resource.get_fill_texture()
+	ring.texture = resource.Empty
+	filling.texture = resource.Filled
 	GameComposer.use_back_up.connect(_on_audio_back_up)
 	rotate_based_on_index()
 
@@ -38,7 +38,15 @@ func _on_audio_back_up():
 		back_up_player= AudioStreamPlayer.new()
 		back_up_player.bus=resource.get_bus_name()
 		add_child(back_up_player)
-		back_up_player.stream = resource.default_audio
+		match resource.type_ring:
+			beat_ring_button_resource.ring_types.KLAP:
+				back_up_player.stream = resource.back_up_bank.klap
+			beat_ring_button_resource.ring_types.STOMP:
+				back_up_player.stream = resource.back_up_bank.kick
+			beat_ring_button_resource.ring_types.HIHAT:
+				back_up_player.stream = resource.back_up_bank.hihat
+			beat_ring_button_resource.ring_types.TROMPET:
+				back_up_player.stream = resource.back_up_bank.snare
 	audio_backup = true
 
 #This func gets the index based on the position of this object in the list, needed for which note to set active/inactive

@@ -1,15 +1,9 @@
-[gd_resource type="Resource" script_class="beat_ring_button_resource" load_steps=12 format=3 uid="uid://77glw7d08e2h"]
+[gd_resource type="Resource" script_class="beat_ring_button_resource" load_steps=6 format=3 uid="uid://77glw7d08e2h"]
 
 [ext_resource type="Texture2D" uid="uid://cycm0pnus502t" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Blue_Empty.png" id="1_i7sm2"]
 [ext_resource type="AudioStream" uid="uid://c5je644emfbem" path="res://Assets/Audio/back_up/open-hihat.wav" id="1_um0vc"]
 [ext_resource type="Script" uid="uid://8kfvwo1wf6qc" path="res://Scripts/Resources/beat_ring_button_resource.gd" id="2_x2c5n"]
 [ext_resource type="Texture2D" uid="uid://coeqa87ckwiob" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Blue_Drop.png" id="2_yqcq1"]
-[ext_resource type="Texture2D" uid="uid://don2vtttob1ok" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Orange_Empty.png" id="3_6igbi"]
-[ext_resource type="Texture2D" uid="uid://eit88qu763uw" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Orange-Star.png" id="4_n3g02"]
-[ext_resource type="Texture2D" uid="uid://c84voksibv63b" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Pink_Empty.png" id="5_ewhi6"]
-[ext_resource type="Texture2D" uid="uid://dpibln5wbbual" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Pink_ROUND.png" id="6_r0cid"]
-[ext_resource type="Texture2D" uid="uid://d2eebaunur4yi" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Outlines/SHAPES_Green_Empty.png" id="7_ebcdw"]
-[ext_resource type="Texture2D" uid="uid://gmumg5k2imv8" path="res://Assets/Sprites/New Assets/Art Assets/Shapes/Filled/SHAPES_Green-Clover.png" id="8_ul264"]
 [ext_resource type="Resource" uid="uid://upar0xbf2mum" path="res://Assets/Audio/back_up/default.tres" id="9_yqcq1"]
 
 [resource]
@@ -17,4 +11,6 @@ script = ExtResource("2_x2c5n")
 default_audio = ExtResource("1_um0vc")
 back_up_bank = ExtResource("9_yqcq1")
 type_ring = 2
+Empty = ExtResource("1_i7sm2")
+Filled = ExtResource("2_yqcq1")
 metadata/_custom_type_script = "uid://8kfvwo1wf6qc"
